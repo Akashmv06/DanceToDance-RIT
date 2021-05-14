@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+    {% block content %}
+<!--{% for user in posts%}
+        <h1>{{user.sname}}</h1>
+        <img
+        class="user-image"
+        src="{{user.dp.url}}"
+        alt="post-image"
+        srcset=""
+      />
+      
+   {%endfor%}
+   {%block posts%}-->
+   
+    
+   <form method="POST" >
+{% csrf_token %} 
+<div class="formContainer">
+<h1>Sign Up Form</h1>
+<label for="sname"><b>Full Name:</b></label>
+<input type="text" place holder="Full Name" name="sname" required>
+<label for="snum"><b>Phone number:</b></label>
+<input type="text" place holder="Contact" name="snum" required>
+<label for="email"><b>Email</b></label>
+<input type="text" placeholder="Enter Email" name="email" required>
+<label for="dob"><b>Birthday:</b></label>
+<input type="date" id="dob" name="dob">
+<div class="radio">
+<label><b>Gender</b></label><br>
+<input type="radio"  name="gender" value="male">
+  <label>Male</label><br>
+  <input type="radio" name="gender" value="female">
+  <label>Female</label><br>
+  <input type="radio" name="gender" value="other">
+  <label>Others</label><br></div>
+  <label><b>District</b></label>
+  <select name="dist" id="dist" onchange="LoadPLace(this.value)">
+  <option>--select--</option>
+  {%for data in DistrictRecords%}
+    <option value="{{  data.id }}">{{data.district_name}}</option>
+  {% endfor %}
+  </select><br>
+
+  <!--<label><b>Place</b></label>
+  <select name="places" id="places" onchange="LoadPLace(this.value)">
+  <option>--select--</option>
+  {%for data in PlaceRecordSets%}
+    <option value="">{{data.place_name}}</option>
+  {% endfor %}
+  </select><br>-->
+<label for="username"><b>Username</b></label>
+<input type="text" placeholder="Enter username" name="username" required>  
+
+
+
+<label for="password"><b>Password</b></label>
+<input type="password" placeholder="Enter Password" name="password" required>
+<label for="repeatPassword"><b>Repeat Password</b></label>
+<input type="password" placeholder="Repeat Password" name="repeatPassword"
+required><br>
+<label><b>Upload Profile Picture</b></label>
+ <input type="file" id="myFile" name="filename"><br>
+<label>
+<input type="checkbox" checked="checked" name="remember" style="marginbottom: 15px"> Remember me
+</label>
+<p>By creating an account you agree to our <a href="#"
+style="color:dodgerblue">Terms & Privacy</a><p>
+<div>
+<button type="button" class="cancel">Cancel</button>
+<button type="submit" class="signup" value="submit" onclick='datasaved'>Sign Up</button>
+</div>
+</div>
+</form>
+ 
+    <!--{%endblock posts%}-->
+    {% endblock content %}
