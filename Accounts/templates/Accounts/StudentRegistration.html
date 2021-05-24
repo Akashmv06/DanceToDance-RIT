@@ -14,27 +14,27 @@
    {%block posts%}-->
    
     
-   <form method="POST" >
+   <form method="POST"enctype="multipart/form-data" >
 {% csrf_token %} 
 <div class="formContainer">
 <h1>Sign Up Form</h1>
-<label for="sname"><b>Full Name:</b></label>
+<p>Full Name:</p>
 <input type="text" place holder="Full Name" name="sname" required>
-<label for="snum"><b>Phone number:</b></label>
+<p>Phone number:</p>
 <input type="text" place holder="Contact" name="snum" required>
-<label for="email"><b>Email</b></label>
+<p>Email</p>
 <input type="text" placeholder="Enter Email" name="email" required>
-<label for="dob"><b>Birthday:</b></label>
+<p>Birthday:</p>
 <input type="date" id="dob" name="dob">
-<div class="radio">
-<label><b>Gender</b></label><br>
+<div class="radiobtn">
+<p>Gender</p>
 <input type="radio"  name="gender" value="male">
-  <label>Male</label><br>
+  <p>Male<p>
   <input type="radio" name="gender" value="female">
-  <label>Female</label><br>
+  <p>Female</p>
   <input type="radio" name="gender" value="other">
-  <label>Others</label><br></div>
-  <label><b>District</b></label>
+  <p>Others</p></div>
+  <p>District</p>
   <select name="dist" id="dist" onchange="LoadPLace(this.value)">
   <option>--select--</option>
   {%for data in DistrictRecords%}
@@ -49,27 +49,33 @@
     <option value="">{{data.place_name}}</option>
   {% endfor %}
   </select><br>-->
-<label for="username"><b>Username</b></label>
+<p>Username</p>
 <input type="text" placeholder="Enter username" name="username" required>  
 
 
 
-<label for="password"><b>Password</b></label>
+<p>Password</p>
 <input type="password" placeholder="Enter Password" name="password" required>
-<label for="repeatPassword"><b>Repeat Password</b></label>
+<p>Repeat Password</p>
 <input type="password" placeholder="Repeat Password" name="repeatPassword"
 required><br>
-<label><b>Upload Profile Picture</b></label>
- <input type="file" id="myFile" name="filename"><br>
-<label>
-<input type="checkbox" checked="checked" name="remember" style="marginbottom: 15px"> Remember me
-</label>
+<p>Upload Profile Picture</p>
+ <input type="file" id="filename" name="filename"><br>
+<!--<p>
+<input type="checkbox"  checked="checked" name="remember" style="marginbottom: 15px"> Remember me
+</p>
 <p>By creating an account you agree to our <a href="#"
-style="color:dodgerblue">Terms & Privacy</a><p>
+style="color:dodgerblue">Terms & Privacy</a></p>-->
 <div>
-<button type="button" class="cancel">Cancel</button>
-<button type="submit" class="signup" value="submit" onclick='datasaved'>Sign Up</button>
-</div>
+
+
+<button type="submit" class="signup" value="submit">Sign Up</button>
+<button type="button" class="cancel" id="Cancel" >Cancel</button>
+<script type="text/javascript">
+    document.getElementById("Cancel").onclick = function () {
+        location.href = "http://127.0.0.1:8000/accounts/login";
+    };
+</script>
 </div>
 </form>
  

@@ -1,23 +1,41 @@
 {% extends 'base.html' %}
 {% block title %}Login{% endblock %}
     {% block content %}
-      <form method="POST" >
+     <form action="" method="post">
 {% csrf_token %} 
+{%if fail%}
+    <script>
+        alert("Wrong username or password.")
+    </script>
+    
+{%endif%}
+
+      
+
 <div class="formContainer">
+
 <h1>Login</h1>
-<label for="username"><b>Username</b></label>
+<p>Username</p>
 <input type="text" placeholder="Enter username" name="username" required>  
 
 
 
-<label for="password"><b>Password</b></label>
+<p>Password</p>
 <input type="password" placeholder="Enter Password" name="password" required>
     
 <div>
-<button type="button" class="cancel">Cancel</button>
-<button type="submit" class="signup" value="submit" onclick='datasaved'>Sign Up</button>
+  <!--<input type="submit"  class="cancel" value="Login">-->
+<button type="submit" class="cancel" value="submit" >Login</button> 
+
+<button type="button" class="Signup" id="Signup" >Signup</button>
+<script type="text/javascript">
+    document.getElementById("Signup").onclick = function () {
+        location.href = "http://127.0.0.1:8000/accounts/registerstudent";
+    };
+</script>
+
 </div>
 </div>   
-      
+</form>
     
     {% endblock content %}

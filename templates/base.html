@@ -8,22 +8,26 @@
 
 
     <!-- Bootstrap -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
+    
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    
 
     <!-- font awsome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+      />
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <style>.user-image {
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>     
+                
+                .user-image {
+                  
                   margin-right: -100px;
                   position: absolute;
                   height: 200px;
@@ -31,54 +35,126 @@
                   padding: 5px;
                   right: 50%;
                   border: 3px solid #3f51b5;
-                  margin-top: -40px;
+                  margin-top: -127px;
                   border-width: 2px;
                   border-radius: 50%;
                   top: 30%;
             
+                }
+                .name-class 
+                {
+                  color:#fff;
+                  margin-left: 674px;
+                  margin-top: 217px;
+                }
+
+                .userdetails{
+                  color: #fff;
+                  
+                  margin-left: 539px;
+                  margin-right: 496px;
+                  background: #1e90ff54;
+                  padding: 16px;
+                  border-radius: 35px;
+                }
+
+                .pclass h1{
+                  font-size: 21px;
+                  color: dodgerblue;
+                  margin-top: -7px;
+                }
+                .cardposter:hover .pclass h1{
+                  font-size: 16px;
+                }
+                .pclass img{
+                  width: 100%;
+                  height: 85%;
+                  display: block;
+                  margin: 10px auto;
+                  border-bottom: 2px solid gray;
+                  padding: 0px 5px 10px 5px;
                 }
                 
             .navbar-nav{
               
                 display:flex;
                 flex-direction: row;
-                justify-content: left;
+                justify-content: right;
+                position: fixed;
+              top: 0;
+              right: 0;
+              left: 0;
+              height: 47px;
+              z-index: 1;
+              background: dodgerblue;
+                
+            }
+            .modal{
+              z-index: index 0; 
+
+            }
+            .modal-dialog{
+              width: 514px;
+              height: 399px;
+              margin-top: 7px;
+            }
+            .modal-content{
+              margin-top: 62px;
+            }
+            .fade-scale{
+              margin-top: 48px;
             }
             
-            .navbar-nav a
-            {margin: 5px 10px;}*/
+            .navbar-nav a{
+              margin-top: 8px;
+              margin-right: 8px;
+              text-decoration: none;
+              color: #ffffffc7;
+              transition: all 0.2s ease-in-out
+              }
+              .navbar-nav a i{
+                padding: 6px;
+                vertical-align: middle;
+                font-size: 20px;
+              }
+              .navbar-nav a:hover {
+                color: #fff;
+              }
+               .navbar-nav a:hover i{
+                display:none;
+                }
+              .navbar-nav a:hover b {
+                display:block;
+               }
 
+              
+              
 
 
             body{
-               padding: 10px;
+               
    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-* {box-sizing: border-box}
-input[type=text], input[type=password] {
-   width: 100%;
-   font-size: 18px;
-   padding: 15px;
-   margin: 5px 0 22px 0;
-   display: inline-block;
-   border: none;
-   background: #f1f1f1;
-   block-size: 20px
-}
-label{
-   font-size: 15px;
+              background: currentColor;
 }
 
 
-input[type=text]:focus, input[type=password]:focus,input[type=dob]:focus,input[type=radio]:focus {
-   background-color: #ddd;
-   outline: none;
+
+.posters
+{
+  margin-top: 44px;
 }
-hr {
+
+.names-class hr {
    border: 1px solid #f1f1f1;
    margin-bottom: 25px;
+   
 }
-button {
+.cardclass{
+  background: none;
+  border: none;
+
+}
+.signup {
    font-size: 18px;
    font-weight: bold;
    background-color: rgb(10, 119, 13);
@@ -88,60 +164,173 @@ button {
    border: none;
    cursor: pointer;
    width: 100%;
-   opacity: 0.9;
+   opacity: 0.8;
 }
+
 button:hover {
    opacity:1;
 }
+
 .cancel {
-   padding: 14px 20px;
+   
    background-color: blue;
-   opacity: 0.5
+   
+
+   font-size: 18px;
+   font-weight: bold;
+   
+   color: white;
+   padding: 14px 20px;
+   margin: 8px 0;
+   border: none;
+   cursor: pointer;
+   width: 100%;
+   opacity: 0.6;
 }
 .formContainer {
-   position: relative;
-   padding: 1px 200px;
-   width: 100%;
-   font-size: 10px;
+  position: relative;
+padding: 50px;
+max-width: 700px;
+margin: 20px auto;
+background: azure;
+border-radius: 31px;
+margin-right: 345px;
+   
 }
 .formContainer p{
-   font-size: 28px;
+  font-size: 15px;
+  margin-bottom: 5px;
+  margin-top: 12px;
+  font-weight:bold;
+  
 }
- 
- input[type=date]{
-    background-blend-mode: darken;
-   background: darkcyan;
-   opacity: 0.5;
-   border: darkcyan;
-   border-block: coral;
-   border-block-style: unset;
-   animation-fill-mode: forwards;
-   paddding:14px 20px;
-
-   width: 100%;
-   font-size: 28px;
- 
-   margin: 5px 0 22px 0;
-   display: inline-block;
-   border: none;
-   background: #f1f1f1;
+ .formContainer h1{
+   text-align: center;
+   font-weight: 600;
  }
+ input[type=text], input[type=password], input[type=date]{
+  padding: 8px 12px;
+border-radius: 10px;
+background-color: #80808038;
+border: none;
+width: 100%;
+margin-bottom: 10px;
+ }
+ 
 
 
+input:hover{
+  opacity: 0.8;
+}
+input:focus{
+  border: none;
+}
+
+input[type=file]{
+  border-radius: 0px;
+}
+.logout-butt{
+        color: #d62b0c;
+        position: fixed;
+        top: 20px;
+        background-color: white;
+        right: 30px;
+        box-shadow: 0px 0px 10px 0px #5a5a5a82;
+        z-index: 20;
+        border-radius: 50px;
+        font-size: 12px;
+        transition: .3s ease-in-out;
+        text-decoration: none;
+        /* border: 1px solid #d62b0c; */
+        padding: 10px 15px;
+      }
+      .logout-butt i{
+        font-size: 30px;
+    display: block;
+    text-align: center;
+    padding: 0 5px;
+      }
+      .logout-butt span{
+        display: block !important;
+        margin: 3px auto 0 auto;
+        text-align: center;
+      }
+      .logout-butt:hover{
+        color: white;
+        text-decoration: none !important;
+        background-color: #d62b0c;
+      }
+
+      .container{
+        margin-top: 57px;
+        width: 1265px;
+        max-width: 1265px;
+        margin-left: 183px;
+        
+      }
+
+
+.posters .col-sm-3{
+  padding:0 !important;
+}
+.cardposter{
+  height: 400px;
+  width: 275px;
+  padding:5px 0px;
+  margin: 20px 14px;
+border-radius: 5px;
+box-shadow: 0 0 10px 0 #00000054;
+background: bottom;
+}
+
+.cardposter:hover
+{
+  font-size: medium;
+  transform: scale(1.2);
+}
+.cardposter img{
+  width: 100%;
+height: 85%;
+display: block;
+margin: 10px auto;
+border-bottom: 2px solid gray;
+padding: 0px 5px 10px 5px;
+
+}
+.cardposter p{
+  font-weight: 500;
+  text-align: center;
+  margin: 5px auto;
+  color: #fff;
+
+}     
    </style>
     </head>
 
   <body>
-  
-    
-    <nav class="navbar-dark bg-dark" style="visibility:hidden",>
+    <!--{% if request.session.student_id or request.session.tutor_id %}
+      <a class="logout-butt" href="/accounts/logout"><i class="fa fa-power-off" aria-hidden="true"></i>
+<span>Logout</span>
+      </a>
+      {%endif%}-->
+    {% if request.session.student_id %}
+    <nav class="navbar-dark " >
       <div class="navbar-nav">
+       
+        <a class="nav-item nav-link" href="/student/profile"><i class="fa fa-user" aria-hidden="true"></i><b>
+          Profile</b></a>
+        <a class="nav-item nav-link" href="/accounts/logout"><i class="fa fa-power-off" aria-hidden="true"></i><b>Logout</b></a>
+      
         
-        <a class="nav-item nav-link" href="/accounts/profile">Profile</a>
-        <a class="nav-item nav-link" href="/accounts/login">Tags</a>
+        {%endif%} 
+      {% if request.session.tutor_id %}
+        <a class="nav-item nav-link" href="/accounts/logout">Logout</a>
+        {%endif%}
+      
+     
       </div>
     </nav>
-    <div class="formContainer" style="height: 20%%">
+    <div class="container" >
         {% block content %} {% endblock %}
       </div>
 

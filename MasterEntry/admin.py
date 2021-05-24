@@ -7,5 +7,6 @@ admin.site.register(Designation)
 admin.site.register(NewsType)
 admin.site.register(District)
 admin.site.register(Place)
+admin.site.register(DanceLevel)
 
 # Register your models here.

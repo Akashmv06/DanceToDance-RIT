@@ -20,7 +20,7 @@ class StudentModel(models.Model):
     student_district=models.ForeignKey(District,on_delete=models.CASCADE,null=True,verbose_name="District")
     
     student_regdate=models.DateField("student_regdate",auto_now_add=True,null=False)
-    student_dp=models.ImageField("Profile picture",upload_to='profile',null=False)
+    student_dp=models.ImageField("Profile picture",upload_to='profile')
    
     def __str__(self):
         return self.student_username

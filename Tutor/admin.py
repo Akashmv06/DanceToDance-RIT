@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import CoursePlaylist,CourseVideo
 
-# Register your models here.
+admin.site.register(CoursePlaylist)
+admin.site.register(CourseVideo)

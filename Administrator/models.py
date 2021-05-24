@@ -1,5 +1,6 @@
 from django.db import models
-from MasterEntry.models import Designation,DanceCategory,District
+from django.db.models.fields import TextField
+from MasterEntry.models import Designation,DanceCategory,District,NewsType,DanceLevel
 
 # Create your models here
 Gender=(
@@ -44,6 +45,28 @@ class DanceCourses(models.Model):
     course_downpayment=models.CharField("Down Payment:",max_length=20,null=False,help_text="Online Registration Amount:")
     course_details=models.FileField("Course Syllabus:",upload_to="CourseSyllabus")
     course_remarks=models.TextField("Remarks")
+    course_level=models.ForeignKey(DanceLevel,on_delete=models.SET_NULL,verbose_name="Level",null=True)
+
+    def __str__(self):
+        return (self.course_name)
+
+        
+
+class News(models.Model):
+    news_title=models.CharField("News title", max_length=50,null=False)
+    news_content=models.TextField("News Content")
+    news_newstype=models.ForeignKey(NewsType,on_delete=models.SET_NULL,null=True,verbose_name="News Type:")
+    news_uploaddate=models.DateField("Upload Date", auto_now_add=True)
+    news_poster=models.ImageField( "Poster",upload_to='news')
+    news_loc=models.CharField("Location",max_length=50,null=True)
+    news_date=models.DateField("Date",null=True)
+    
+    
+    def __str__(self):
+        return (self.news_title)
+
+
+
    
 
 

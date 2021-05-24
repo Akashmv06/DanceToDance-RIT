@@ -18,6 +18,11 @@ class Designation(models.Model):
 
     def __str__(self):
         return self.designation_name
+
+class DanceLevel(models.Model):
+    dancelevel_name=models.CharField("Dance Level",max_length=20,null=False,unique=True)
+    def __str__(self):
+        return self.dancelevel_name
     
 class NewsType(models.Model):
     newstype_name=models.CharField("News Type",max_length=20,null=False,unique=True)

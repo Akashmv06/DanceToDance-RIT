@@ -7,6 +7,21 @@
     <title>Document</title>
 </head>
 <body>
+    <form  method="POST"  enctype="multipart/form-data">
+    <div class="formContainer">
+        <label>Dance style</label>
+        <select name="dstyle" id="dstyle" onchange="LoadPLace(this.value)">
+            <option>--select--</option>
+            {%for data in CategoryRecords%}
+              <option value="{{  data.id }}">{{data.dancecategory_name}}</option>
+            {% endfor %}
+            </select><br>
+            
+        
+
+    </div>
     
+    
+    </form>
 </body>
 </html>
