@@ -1,6 +1,7 @@
 
 from django.db import models
 from MasterEntry.models import District
+from django_countries.fields import CountryField
 
 
 class StudentModel(models.Model):
@@ -18,7 +19,7 @@ class StudentModel(models.Model):
     student_password=models.CharField("Password",max_length=20,unique=True,null=False) 
     student_reenterpassword=models.CharField("Re-enter password",max_length=20,unique=True,null=False)
     student_district=models.ForeignKey(District,on_delete=models.CASCADE,null=True,verbose_name="District")
-    
+    student_country=CountryField()
     student_regdate=models.DateField("student_regdate",auto_now_add=True,null=False)
     student_dp=models.ImageField("Profile picture",upload_to='profile')
    

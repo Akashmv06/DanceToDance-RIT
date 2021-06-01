@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Courses{% endblock %}
+    {% block content %}
+
+       
+
+
+    <div class="row posters">
+        {% for data in courses%}
+        
+        <div class="col-sm-3">
+            <button type="button" class="cardclass" id="cardclass" data-toggle="modal" data-target="#my{{forloop.counter}}modal" >
+            
+           
+         {%if data.is_premium%}   
+            <div class="cardposter" style="box-shadow: 0 0 10px 0  #1e90ff;">
+            <a class="cards" href="{%url 'Tutor:coursevideos' data.slug%}">
+            
+                <img src="{{data.course_photo.url}}" />
+        <div class="pclass">
+            <!--<p>Category:</p><h1>{{data.course_dancecategory}}</h1>
+        <p>Trainer:<p><h1>{{data.course_tutor}}</h1>-->
+        <p>Course Name:<p><h1>{{data.course_name}}</h1>
+        <!--<p>Level:<p><h1>{{data.course_level}}</h1> -->
+        </div>   
+        </button>
+        </a>
+        </div>
+        {%else%}
+         <div class="cardposter">
+            <a class="cards" href="{%url 'Tutor:coursevideos' data.slug%}">
+            
+                <img src="{{data.course_photo.url}}" />
+        <div class="pclass">
+            <!--<p>Category:</p><h1>{{data.course_dancecategory}}</h1>
+        <p>Trainer:<p><h1>{{data.course_tutor}}</h1>-->
+        <p>Course Name:<p><h1>{{data.course_name}}</h1>
+        <!--<p>Level:<p><h1>{{data.course_level}}</h1> -->
+        </div>   
+        </button>
+        </a>
+        </div>
+        {%endif%}
+        {%endfor%}
+        </div>
+        </div>
+    {% endblock content %} 
+      

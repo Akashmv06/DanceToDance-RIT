@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.fields import TextField
-from MasterEntry.models import Designation,DanceCategory,District,NewsType,DanceLevel
+from MasterEntry.models import Designation,DanceCategory,District,NewsType,DanceLevel, SubscriptionType
+from django.utils.text import slugify
 
 # Create your models here
 Gender=(
@@ -41,12 +42,14 @@ class DanceCourses(models.Model):
     course_name=models.CharField("Name:",max_length=20,null=False)
     course_photo=models.ImageField(upload_to="CoursePhoto",null=False)
     course_description=models.TextField("Description")
-    course_totalfees=models.CharField("Total Fees:",max_length=20,null=False,)
-    course_downpayment=models.CharField("Down Payment:",max_length=20,null=False,help_text="Online Registration Amount:")
-    course_details=models.FileField("Course Syllabus:",upload_to="CourseSyllabus")
-    course_remarks=models.TextField("Remarks")
     course_level=models.ForeignKey(DanceLevel,on_delete=models.SET_NULL,verbose_name="Level",null=True)
-
+    course_subs=models.ForeignKey(SubscriptionType,on_delete=models.CASCADE,verbose_name="Subscription type",null=True)
+    slug= models.SlugField(blank=True)
+    is_premium=models.BooleanField(default=False)
+    def save(self,*args,**kwargs):
+        self.slug=slugify(self.course_name)
+        super(DanceCourses,self).save(*args,**kwargs)
+    
     def __str__(self):
         return (self.course_name)
 

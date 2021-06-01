@@ -3,6 +3,7 @@ from Accounts.models import StudentModel
 from Administrator.models import News, Tutor,DanceCourses
 from django.http import HttpResponse
 from MasterEntry.models import DanceCategory
+from Tutor.models import CourseVideo
 
 
 
@@ -10,6 +11,10 @@ from MasterEntry.models import DanceCategory
 def DanceCategoryData():
     recordSet=DanceCategory.objects.all()
     return recordSet
+
+def CourseCat():
+    rset=DanceCourses.objects.all()
+    return rset
 #home
 def home(request):
     
@@ -51,11 +56,21 @@ def ChangePassword(request):
         return redirect("/accounts/login")
 
 def ViewCourses(request):
-    recordSet=DanceCategoryData()
-    if request.method=="POST":
-        selectedCourseCategory=request.POST.get("slcTCourseCategory")
-        allCoursesData=DanceCourses.objects.filter(course_dancecategory=selectedCourseCategory)
-        return render(request,"Student/ViewCourses.html",{"allCoursesData":allCoursesData,"DanceCategories":recordSet})
-    else:
-        allCoursesData=DanceCourses.objects.all()
-        return render(request,"Student/ViewCourses.html",{"allCoursesData":allCoursesData,"DanceCategories":recordSet})
+    #recordSet=DanceCategoryData()
+    #if request.method=="POST":
+        #selectedCourseCategory=request.POST.get("slcTCourseCategory")
+        #allCoursesData=DanceCourses.objects.filter(course_dancecategory=selectedCourseCategory)
+        #return render(request,"Student/ViewCourses.html",{"allCoursesData":allCoursesData,"DanceCategories":recordSet})
+    #else:
+    courses=DanceCourses.objects.all()
+    context={"courses":courses}
+    return render(request,"Student/ViewCourses.html",context)
+
+    
+def viewVideo(request,slug):
+    courses=DanceCourses.objects.filter(slug=slug).first()
+    allVideos=CourseVideo.objects.filter(cv_course_id=courses)
+    
+    context={"courses":courses,"allVideos":allVideos}
+    return render(request,"Student/Coursevideo.html",context)
+

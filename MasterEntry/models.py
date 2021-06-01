@@ -1,6 +1,17 @@
 from django.db import models
 
 # Create your models here.
+
+from django_countries.fields import CountryField
+
+class Country(models.Model):
+    country=CountryField(null=False)
+    
+class SubscriptionType(models.Model):
+    Subtype=models.CharField("Subscription type",max_length=20,null=False) 
+    def __str__(self):
+        return(self.Subtype)
+
 class DanceCategory(models.Model):
     dancecategory_name=models.CharField("Dance Category",max_length=20,null=False,unique=True)
 
@@ -32,7 +43,6 @@ class NewsType(models.Model):
 
 class District(models.Model):
     district_name=models.CharField("District",max_length=20,null=False,unique=True)
-
     def __str__(self):
         return self.district_name
 

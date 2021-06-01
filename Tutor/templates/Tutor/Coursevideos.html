@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}Coursevideos{% endblock %}
+    {% block content %}
+
+    <a  href=""class="btn btn-danger" data-toggle="modal" data-target="#mymodal"><i class="fa fa-video-camera" aria-hidden="true"></i>Upload
+      </a> 
+        
+        
+          <h1 class="section-header"></h1>
+          <!--<div class="section-header-underline"></div>-->
+          <div class="row posters videorow">
+         {%for data in allVideos%}
+          <div class="col-sm-3 colcol">
+          <div class="video-gallery">
+            <div class="gallery-item">
+              <img src="{{data.cv_thumbnail.url}}" />
+              <div class="gallery-item-caption">
+                <div>
+                  <h2>{{data.cv_title}}</h2>
+                 </div>
+                <a class="vimeo-popup myvideos" href ="{{data.cv_video.url}}"></a>
+              </div>
+            </div>
+            </div>
+            </div>
+        {%endfor%}
+        </div>
+              <!-- modal -->
+          <div class="modal fade-scale" id="mymodal" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %} 
+                <p>Title<p>
+                <input type="text" name="vtitle" required>
+                <p>Thumbnail</p>
+                <input type="file" name="vthumb" required>
+                <p>Video</p>
+                <input type="file" name="vvideo" required >
+                
+                <p>Course</p>
+                <select name="vcourse" id="vcourse" onclick="LoadPLace(this.value)">
+                {%if courses%}
+                    <option value="{{courses.id}}" selected>{{courses.id}}</option>
+                {%endif%}     
+                </select>
+                <input type="submit" class="btn btn-success" value="submit" >Upload</a>
+               </form> 
+                </div>
+              </div>            
+            </div>
+          </div>
+          <!-- modal end -->
+        
+        
+
+        
+     <script>
+     
+     var cip = $(".video-gallery").hover( hoverVideo, hideVideo );
+
+function hoverVideo(e) {  
+    $('video-gallery', this).get(0).play(); 
+}
+
+function hideVideo(e) {
+    $('video-gallery', this).get(0).pause(); 
+}
+    </script>  
+
+{%if Update%}
+<script>
+    alert("Video Uploaded")
+</script>              
+ {%endif%}     
+        
+        
+
+
+   
+   {% endblock content %} 
+   
+   

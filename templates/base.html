@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     
     
-
     <!-- font awsome -->
     <link
       rel="stylesheet"
@@ -59,7 +58,7 @@
                 }
 
                 .pclass h1{
-                  font-size: 21px;
+                  font-size: 14px;
                   color: dodgerblue;
                   margin-top: -7px;
                 }
@@ -86,11 +85,11 @@
               left: 0;
               height: 47px;
               z-index: 1;
-              background: dodgerblue;
+              background: #181818;
                 
             }
             .modal{
-              z-index: index 0; 
+              z-index: index 0 !important; 
 
             }
             .modal-dialog{
@@ -104,6 +103,13 @@
             .fade-scale{
               margin-top: 48px;
             }
+            .navbar-nav  .fa-bars{
+              margin-left: -1207px;
+              font-size: 28px;
+              margin-top: -5px;
+              cursor: pointer;
+            }
+            
             
             .navbar-nav a{
               margin-top: 8px;
@@ -116,9 +122,10 @@
                 padding: 6px;
                 vertical-align: middle;
                 font-size: 20px;
+                
               }
               .navbar-nav a:hover {
-                color: #fff;
+                color:dodgerblue;
               }
                .navbar-nav a:hover i{
                 display:none;
@@ -126,7 +133,7 @@
               .navbar-nav a:hover b {
                 display:block;
                }
-
+             
               
               
 
@@ -134,7 +141,8 @@
             body{
                
    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-              background: currentColor;
+              background: #121212;
+              
 }
 
 
@@ -173,7 +181,7 @@ button:hover {
 
 .cancel {
    
-   background-color: blue;
+   background-color:dodgerblue;
    
 
    font-size: 18px;
@@ -192,17 +200,19 @@ button:hover {
 padding: 50px;
 max-width: 700px;
 margin: 20px auto;
-background: azure;
+background: #181818;
 border-radius: 31px;
 margin-right: 345px;
-   
+box-shadow:0 0 10px #1e90ff;
 }
+   
+
 .formContainer p{
   font-size: 15px;
   margin-bottom: 5px;
   margin-top: 12px;
   font-weight:bold;
-  
+  color:#ffffff
 }
  .formContainer h1{
    text-align: center;
@@ -211,7 +221,7 @@ margin-right: 345px;
  input[type=text], input[type=password], input[type=date]{
   padding: 8px 12px;
 border-radius: 10px;
-background-color: #80808038;
+background-color: #ffffff;
 border: none;
 width: 100%;
 margin-bottom: 10px;
@@ -281,12 +291,14 @@ input[type=file]{
 border-radius: 5px;
 box-shadow: 0 0 10px 0 #00000054;
 background: bottom;
+background-image: linear-gradient(#404040,#282828);
 }
 
 .cardposter:hover
 {
   font-size: medium;
-  transform: scale(1.2);
+  transform: scale(1.085);
+  
 }
 .cardposter img{
   width: 100%;
@@ -303,11 +315,240 @@ padding: 0px 5px 10px 5px;
   margin: 5px auto;
   color: #fff;
 
-}     
+}   
+.cardposter a{
+  text-decoration: none;
+}  
+
+
+/*Sidebar*/
+
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 88px; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+
+  margin-top: 47px;
+  background-color:#181818; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 42px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+.sidenav a p{
+  font-size: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-align: center !important;
+margin-left: -9px !important;
+}
+
+.sidenav a:hover {
+  transform:scale(1.2);
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color:dodgerblue;
+
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+.section-header {
+  text-align: center;
+  margin: 60px auto 20px auto;
+
+  font-size: 48px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #222;
+}
+
+.section-header-underline {
+  border: 1px solid #222;
+  width: 3rem;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.video-gallery {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1000px;
+  text-align: center;
+  
+  margin-left: 1px;
+}
+
+.video-gallery .gallery-item {
+  position: relative;
+  float: left;
+  overflow: hidden;
+  margin: 10px 1%;
+  min-width: 320px;
+  max-width: 400px;
+  max-height: 214px;
+  width: 48%;
+  background: #000;
+  cursor: pointer;
+  border-radius: 19px;
+}
+
+.video-gallery .gallery-item img {
+  position: relative;
+  display: block;
+  opacity: .45;
+  width: 108%;
+  height: 204px;
+  transition: opacity 0.35s, transform 0.35s;
+  transform: translate3d(-23px, 0, 0);
+  backface-visibility: hidden;
+}
+
+.video-gallery .gallery-item .gallery-item-caption {
+  padding: 2em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.25em;
+}
+
+.video-gallery .gallery-item .gallery-item-caption,
+.video-gallery .gallery-item .gallery-item-caption > a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-gallery .gallery-item h2 {
+  font-weight: 300;
+  overflow: hidden;
+  padding: 0.5em 0;
+}
+
+
+.video-gallery .gallery-item h2,
+.video-gallery .gallery-item p {
+  position: relative;
+  margin: 0;
+  z-index: 10;
+}
+
+.video-gallery .gallery-item p {
+  letter-spacing: 1px;
+  font-size: 68%;
+
+  padding: 1em 0;
+  opacity: 0;
+  transition: opacity 0.35s, transform 0.35s;
+  transform: translate3d(10%, 0, 0);
+}
+
+.video-gallery .gallery-item:hover img {
+  opacity: .3;
+  transform: translate3d(0, 0, 0);
+
+}
+
+.video-gallery .gallery-item .gallery-item-caption {
+  text-align: left;
+}
+
+.video-gallery .gallery-item h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 15%;
+  height: 1px;
+  background: #fff;
+  
+  transition: transform 0.3s;
+  transform: translate3d(-100%, 0, 0);
+}
+
+.video-gallery .gallery-item:hover h2::after {
+  transform: translate3d(0, 0, 0);
+}
+
+.video-gallery .gallery-item:hover p {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+ .gallery-item:hover{
+  transform:scale(0.97);
+}
+
+@media screen and (max-width: 50em) {
+  .video-gallery .gallery-item {
+    display: inline-block;
+    float: none;
+    margin: 10px auto;
+    width: 100%;
+  }
+}
+.colcol{
+  width:25%;
+}
+.videorow{
+  width: 1331px;
+  margin-left: -68px;
+}
+.openav{
+  justify-content: left;
+  left: 100px;
+  right:0;
+}
+
+
+
+
+
+
+
+
+
+
+
    </style>
+   
     </head>
 
   <body>
+   
     <!--{% if request.session.student_id or request.session.tutor_id %}
       <a class="logout-butt" href="/accounts/logout"><i class="fa fa-power-off" aria-hidden="true"></i>
 <span>Logout</span>
@@ -316,20 +557,64 @@ padding: 0px 5px 10px 5px;
     {% if request.session.student_id %}
     <nav class="navbar-dark " >
       <div class="navbar-nav">
-       
+        <!--<button class="nav-item nav-link opennav" onclick="openNav()" style=><i class="fa fa-bars" aria-hidden="true"></i></button>-->
+        
         <a class="nav-item nav-link" href="/student/profile"><i class="fa fa-user" aria-hidden="true"></i><b>
           Profile</b></a>
         <a class="nav-item nav-link" href="/accounts/logout"><i class="fa fa-power-off" aria-hidden="true"></i><b>Logout</b></a>
       
         
-        {%endif%} 
-      {% if request.session.tutor_id %}
-        <a class="nav-item nav-link" href="/accounts/logout">Logout</a>
-        {%endif%}
-      
-     
+        
+        
       </div>
     </nav>
+    <div id="mySidenav" class="sidenav">
+          
+          
+      <a href="/student/home"><i class="fa fa-home" aria-hidden="true"></i><p>HOME</p></a>
+      <a href="/student/courses"><i class="fa fa-th-large" aria-hidden="true"></i><p>COURSES</p></a>
+      
+    </div>
+    {%endif%}
+      
+      {% if request.session.tutor_id %}
+      <nav class="navbar-dark " >
+        <div class="navbar-nav">
+      
+      <a class="nav-item nav-link" href="/tutor/profile"><i class="fa fa-user" aria-hidden="true"></i><b>
+        Profile</b></a> 
+        <a class="nav-item nav-link" href="/accounts/logout"><i class="fa fa-power-off" aria-hidden="true"></i><b>Logout</b></a>
+       
+      </div>
+    </nav>
+    <div id="mySidenav" class="sidenav">
+          
+          
+      <a href=""><i class="fa fa-home" aria-hidden="true"></i><p>HOME</p></a>
+      
+      <a href="/tutor/courses/"><i class="fa fa-th-large" aria-hidden="true"></i><p>COURSES</p></a>
+      
+    </div>
+    {%endif%}
+
+    
+    
+
+     <script>
+       function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "88px";
+} 
+      </script>
+     
+     
+
+
+    
     <div class="container" >
         {% block content %} {% endblock %}
       </div>

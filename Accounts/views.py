@@ -65,6 +65,7 @@ def studentRegister(request):
 def login(request):
     if request.session.has_key('student_id'):
         return redirect("/student/home")
+        
     elif request.session.has_key('tutor_id'):
         return redirect("/tutor/profile")
     
@@ -76,7 +77,8 @@ def login(request):
                 StudentObj = get_object_or_404(StudentModel, student_username=request.POST.get("username"),student_password=request.POST.get("password"))
                 request.session["student_id"]=StudentObj.id
                 request.session["student_name"]=StudentObj.student_name
-                return redirect("/student/home")
+                p=StudentModel.objects.all()
+                return redirect("/student/home",{'p':p})
             elif TutorDataCount>0:
                 Tutorobj = get_object_or_404(Tutor,tutor_username=request.POST.get("username"),tutor_password=request.POST.get("password"))
                 request.session["tutor_id"]=Tutorobj.id
