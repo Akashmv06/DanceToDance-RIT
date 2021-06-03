@@ -10,30 +10,7 @@
             <div class="cardposter">
 
               
-               <!-- modal -->
-          <div class="modal fade-scale" id="my{{forloop.counter}}modal" role="dialog">
-            <div class="modal-dialog">
-            
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title">{{d.news_title}}</h4>
-                </div>
-                <div class="modal-body">
-                <img src="{{d.news_poster.url}}" />
-                <h2>Content:{{d.news_content}}</h2>
-                <h2>Location:{{d.news_loc}}</h2>
-                <h2>Date:{{d.news_date}}</h2>
-                
-                
-
-                
-                </div>
-              </div>
-              
-            </div>
-          </div>
-          <!-- modal end -->
+               
 
                 <img src="{{d.news_poster.url}}" /> 
                 <p>{{d.news_title}}</p>
@@ -46,4 +23,30 @@
 
 
     </div>
+    {%for d in allnewsdata%}
+    <!-- modal -->
+    <div class="modal fade-scale" id="my{{forloop.counter}}modal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{d.news_title}}</h4>
+          </div>
+          <div class="modal-body">
+          <img src="{{d.news_poster.url}}" />
+          <h2>Content:{{d.news_content}}</h2>
+          <h2>Location:{{d.news_loc}}</h2>
+          <h2>Date:{{d.news_date}}</h2>
+          
+          
+
+          
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <!-- modal end -->
+    {%endfor%}
    {% endblock content %}

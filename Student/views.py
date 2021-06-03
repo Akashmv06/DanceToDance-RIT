@@ -1,10 +1,11 @@
+import Student
 from django.shortcuts import render,redirect,get_object_or_404
 from Accounts.models import StudentModel
 from Administrator.models import News, Tutor,DanceCourses
 from django.http import HttpResponse
 from MasterEntry.models import DanceCategory
 from Tutor.models import CourseVideo
-
+from .models import Favourites
 
 
 # Create your views here.
@@ -62,6 +63,7 @@ def ViewCourses(request):
         #allCoursesData=DanceCourses.objects.filter(course_dancecategory=selectedCourseCategory)
         #return render(request,"Student/ViewCourses.html",{"allCoursesData":allCoursesData,"DanceCategories":recordSet})
     #else:
+    
     courses=DanceCourses.objects.all()
     context={"courses":courses}
     return render(request,"Student/ViewCourses.html",context)
@@ -73,4 +75,32 @@ def viewVideo(request,slug):
     
     context={"courses":courses,"allVideos":allVideos}
     return render(request,"Student/Coursevideo.html",context)
+
+def AddFavourites(request,slug):
+
+    if request.session.has_key('student_id'):
+        allVideos=CourseVideo.objects.filter(slug=slug)
+        
+        if request.method=='POST':
+            
+            a=Favourites()
+            a.fstudent=request.session['student_id']
+            VObj=CourseVideo.objects.get(id=request.POST.get("vi"))
+            a.fvideo=VObj
+            a.save()
+            context={"allvideos":allVideos}
+            return redirect ("courses/videos/",context)
+            
+    else:
+        return redirect("/accounts/login")
+    
+
+
+def viewFavourites(request):
+    if request.session.has_key('student_id'):
+        sid=request.session['student_id']
+        fav=Favourites.objects.filter(fstudent=sid)
+        return render(request,"Student/favourites.html",{"fav":fav})
+    else:
+        return redirect("/accounts/login")
 

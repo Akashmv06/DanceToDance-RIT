@@ -35,11 +35,13 @@ def UploadVideo(request):
         return render(request,"Tutor/CourseVideos.html",{'courses':courses})
 
 def viewCourses(request):
- if request.session.has_key('tutor_id'):
-    tid = request.session['tutor_id']
-    courses=DanceCourses.objects.filter(course_tutor_id=tid)
-    context={"courses":courses}
-    return render(request,"Tutor/Courses.html",context)
+    if request.session.has_key('tutor_id'):
+        tid = request.session['tutor_id']
+        courses=DanceCourses.objects.filter(course_tutor_id=tid)
+        context={"courses":courses}
+        return render(request,"Tutor/Courses.html",context)
+    else:
+        return redirect("/accounts/login")
 
 def selectvideo():
     cid=DanceCourses.objects.all()
@@ -63,3 +65,13 @@ def viewVideo(request,slug):
         p.save()
         return render(request,"Tutor/Coursevideos.html",{'allVideos':allVideos,"courses":courses,'Update':1})
     return render(request,"Tutor/Coursevideos.html",context)
+
+def deleteVideo(request):
+    allVideos=CourseVideo.objects.all()
+    if request.session.has_key('tutor_id'):
+        if request.method=="POST":
+            delvid=CourseVideo.objects.filter(id=allVideos)
+            delvid.delete()
+            return render(request,"Tutor/Coursevideos.html",{"allVideos":allVideos})
+    else:
+        return redirect("/accounts/login")

@@ -10,5 +10,5 @@ path('createplaylist',views.CreatePlayList,name="create-playlist"),
 path('profile',views.Tutorprofile,name="profile"),
 path('courses/',views.viewCourses,name="courses"),
 path('courses/videos/<slug>/',views.viewVideo,name="coursevideos"),
-
+path('courses/videos/delete',views.deleteVideo,name="deletevideos"),
 ]

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Courses{% endblock %}
+{% block title %}Favourites{% endblock %}
     {% block content %}
 
     
@@ -11,16 +11,16 @@
 
             
             
-          {%for data in allVideos%}
+          {%for data in fav%}
           <div class="col-sm-3 colcol">
           
           <div class="video-gallery">
             
             <div class="gallery-item">
-              <img src="{{data.cv_thumbnail.url}}" />
+              <img src="{{data.fvideo.cv_thumbnail.url}}" />
               <div class="gallery-item-caption">
                 <div>
-                  <h2>{{data.cv_title}}</h2>
+                  <h2>{{data.fvideo.cv_title}}</h2>
                   
                 </div>
                 <a class="vimeo-popup myvideos" href ="" data-toggle="modal" data-target="#my{{forloop.counter}}modal"></a>
@@ -46,7 +46,7 @@ function hideVideo(e) {
     $('video-gallery', this).get(0).pause(); 
 }
     </script>  
- {%for data in allVideos%}
+ {%for data in fav%}
       <!-- modal -->
       
       <div class="modal fade-scale" id="my{{forloop.counter}}modal" role="dialog">
@@ -58,20 +58,9 @@ function hideVideo(e) {
             <div class="modal-header">
               <h4 class="modal-title"></h4>
               
-              <form action="{%url 'Student:favourites' data.cv_course.slug%}" method="POST" name="myForm" id="myForm" enctype="multipart/form-data">
-                {%csrf_token%}
-                
-                  <select name="vi" id="vi" onchange="LoadPLace(this.value)">
-                    {%if allVideos%}
-                    <option value="{{data.id}}" >{{data.cv_title}}</option>
-                    {%endif%}
-                  </select>
-                <input type="submit" value="submit" >
-            </form>
-            
             </div>
             <div class="modal-body">
-            <video class="" controls="controls"  ><source src="{{data.cv_video.url}}" type="video/mp4"/></video>  
+            <video class="" controls="controls"  ><source src="{{data.fvideo.cv_video.url}}" type="video/mp4"/></video>  
             <h2></h2>
             <h2></h2>
             <h2></h2>
@@ -93,21 +82,7 @@ function hideVideo(e) {
       $v[0].pause();  // use [0] because jQuery returns a list
     });
   </script>
-  {%for a in allVideos%}
-<script>$('#myForm').submit(function(e){
-  e.preventDefault();
-  $.ajax({
-      url: 'Student:favourites',
-      type: 'post',
-      data:$('#myForm').serialize(),
-      success:function(){
-          // Whatever you want to do after the form is successfully submitted
-      }
-  });
-});</script>
-{%endfor%}
-
    
    {% endblock content %} 
    
-  
+   

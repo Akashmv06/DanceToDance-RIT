@@ -45,7 +45,7 @@
                 <input type="file" name="vvideo" required >
                 
                 <p>Course</p>
-                <select name="vcourse" id="vcourse" onclick="LoadPLace(this.value)">
+                <select name="vcourse" id="vcourse" onclick="LoadPLace(this.value)"style="display:none;">
                 {%if courses%}
                     <option value="{{courses.id}}" selected>{{courses.id}}</option>
                 {%endif%}     
