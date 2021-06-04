@@ -34,14 +34,14 @@ SUBSCRIPTION = (
 
 
 class Subscription(models.Model):
-    Student = models.CharField(max_length=40,verbose_name="Student",null=True)
+    subStudent =models.ForeignKey(StudentModel,on_delete=models.CASCADE,null=True,verbose_name="Student")
     is_pro = models.BooleanField(default=False)
     paid_date=models.DateField(auto_now_add=True,null=True)
     pro_expiry_date = models.DateField(null=True, blank=True)
     subscription_type = models.CharField(max_length=100 , choices=SUBSCRIPTION , default='FREE')     
         
     def __str__(self):
-        return self.Student
+        return self.subStudent.student_name
 
 
 

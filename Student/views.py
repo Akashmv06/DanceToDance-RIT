@@ -1,11 +1,16 @@
 import Student
 from django.shortcuts import render,redirect,get_object_or_404
-from Accounts.models import StudentModel
+from Accounts.models import StudentModel,Subscription
 from Administrator.models import News, Tutor,DanceCourses
 from django.http import HttpResponse
 from MasterEntry.models import DanceCategory
 from Tutor.models import CourseVideo
 from .models import Favourites
+import stripe
+from django.contrib.auth.models import User
+from datetime import datetime, timedelta
+from django.contrib.auth import authenticate
+
 
 
 # Create your views here.
@@ -57,14 +62,16 @@ def ChangePassword(request):
         return redirect("/accounts/login")
 
 def ViewCourses(request):
-    #recordSet=DanceCategoryData()
-    #if request.method=="POST":
-        #selectedCourseCategory=request.POST.get("slcTCourseCategory")
-        #allCoursesData=DanceCourses.objects.filter(course_dancecategory=selectedCourseCategory)
-        #return render(request,"Student/ViewCourses.html",{"allCoursesData":allCoursesData,"DanceCategories":recordSet})
-    #else:
-    
+    recordSet=DanceCategoryData()
     courses=DanceCourses.objects.all()
+    if request.method=="POST":
+        selectedCourseCategory=request.POST.get("slcTCourseCategory")
+        allCoursesData=DanceCourses.objects.filter(course_dancecategory=selectedCourseCategory)
+        return render(request,"Student/ViewCourses.html",{"allCoursesData":allCoursesData,"DanceCategories":recordSet})
+    
+    
+    
+    
     context={"courses":courses}
     return render(request,"Student/ViewCourses.html",context)
 
@@ -103,4 +110,63 @@ def viewFavourites(request):
         return render(request,"Student/favourites.html",{"fav":fav})
     else:
         return redirect("/accounts/login")
+
+def subscription(request):
+    if request.method == 'POST':
+        membership = request.POST.get('membership' , 'MONTHLY')
+        amount = 1000
+        if membership == 'YEARLY':
+            amount = 11000
+        stripe.api_key = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+        sid= request.session['student_id']
+        s = get_object_or_404(StudentModel,id=sid)
+        request.session['student_email']=s.student_email
+        request.session['student_username']=s.student_username
+        customer = stripe.Customer.create(
+            
+            
+            email =request.session['student_email'],
+			name=request.session['student_username'],
+            source=request.POST['stripeToken']
+			)
+            
+        charge = stripe.Charge.create(
+			customer=customer,
+			amount=amount*100,
+			currency='inr',
+			description="Membership",   
+		)
+        
+        print(charge['amount'])
+        if charge['paid'] == True:
+            sid=request.session['student_id']
+            Student=get_object_or_404(StudentModel,id=sid)
+            profile=Subscription()
+            profile.subStudent=Student
+            if charge['amount'] == 100000:
+                
+                profile.subscription_type = 'M'
+                profile.is_pro = True
+                expiry = datetime.now() + timedelta(30)
+                profile.pro_expiry_date = expiry
+                profile.save()
+            elif charge['amount'] == 1100000:
+                profile.subscription_type = 'Y'
+                profile.is_pro = True
+                expiry = datetime.now() + timedelta(365)
+                profile.pro_expiry_date = expiry
+                profile.save()
+        
+        print(charge)
+        
+        return redirect("/student/success/")
+          
+            
+   
+    return render(request, 'Student/Subscribe.html')
+ 
+
+def charge(request):
+    return render(request, 'Student/charge.html')
+        
 

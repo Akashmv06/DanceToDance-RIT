@@ -22,3 +22,4 @@ def CreateNews(request):
         return render(request,"Administrator/NewsManagement.html")
     else:
         return render(request,"Administrator/NewsManagement.html",{'NewsTypeRecords':NewsTypeRecords})
+

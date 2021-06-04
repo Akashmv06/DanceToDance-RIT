@@ -16,6 +16,9 @@ def Tutorprofile(request):
     else:
         return redirect("/accounts/login")
 
+def courseselect():
+    courses=DanceCourses.objects.all()
+    return courses
 
 #dancevideoupload
 def UploadVideo(request):
