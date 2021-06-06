@@ -41,7 +41,7 @@ class Subscription(models.Model):
     subscription_type = models.CharField(max_length=100 , choices=SUBSCRIPTION , default='FREE')     
         
     def __str__(self):
-        return self.subStudent.student_name
+        return f"{self.subStudent.student_name}-{self.subStudent.id}"
 
 
 

@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from Accounts.models import StudentModel,Subscription
 from Administrator.models import News, Tutor,DanceCourses
 from django.http import HttpResponse
-from MasterEntry.models import DanceCategory
+from MasterEntry.models import DanceCategory, DanceLevel
 from Tutor.models import CourseVideo
 from .models import Favourites
 import stripe
@@ -14,8 +14,8 @@ from django.contrib.auth import authenticate
 
 
 # Create your views here.
-def DanceCategoryData():
-    recordSet=DanceCategory.objects.all()
+def LevelData():
+    recordSet=DanceLevel.objects.all()
     return recordSet
 
 def CourseCat():
@@ -62,21 +62,24 @@ def ChangePassword(request):
         return redirect("/accounts/login")
 
 def ViewCourses(request):
-    recordSet=DanceCategoryData()
-    courses=DanceCourses.objects.all()
+    recordSet=LevelData()
+
     if request.method=="POST":
-        selectedCourseCategory=request.POST.get("slcTCourseCategory")
-        allCoursesData=DanceCourses.objects.filter(course_dancecategory=selectedCourseCategory)
-        return render(request,"Student/ViewCourses.html",{"allCoursesData":allCoursesData,"DanceCategories":recordSet})
+        Level=request.POST.get("level")
+        courses=DanceCourses.objects.filter(course_level=Level)
+        return render(request,"Student/ViewCourses.html",{"courses":courses,"DanceLevel":recordSet})
     
     
     
     
-    context={"courses":courses}
-    return render(request,"Student/ViewCourses.html",context)
+    else:
+        courses=DanceCourses.objects.all()
+    
+        return render(request,"Student/ViewCourses.html",{"courses":courses,"DanceLevel":recordSet})
 
     
 def viewVideo(request,slug):
+    
     courses=DanceCourses.objects.filter(slug=slug).first()
     allVideos=CourseVideo.objects.filter(cv_course_id=courses)
     
@@ -169,4 +172,38 @@ def subscription(request):
 def charge(request):
     return render(request, 'Student/charge.html')
         
+def videoSub(request,slug):
+    sid=request.session['student_id']
+    stu=StudentModel.objects.get(id=sid)
+    sub=Subscription.objects.filter(subStudent_id=stu.id)
+    if sub.exists():
+        courses=DanceCourses.objects.filter(slug=slug).first()
+        allVideos=CourseVideo.objects.filter(cv_course_id=courses)
+    
+        context={"courses":courses,"allVideos":allVideos}
+        return render(request,"Student/Coursevideo.html",context)
+        
+    else:
+        return redirect("/student/subscription/")
+        
 
+def CategoryView(request):
+  
+        
+        Category=DanceCategory.objects.all()
+        return render(request,"Student/category.html",{"Category":Category})
+
+def Coursecat(request,dancecategory_name):
+    recordSet=LevelData()
+    if request.method=="POST":
+        Level=request.POST.get("level")
+        Category=DanceCategory.objects.filter(dancecategory_name=dancecategory_name).first()
+        courses=DanceCourses.objects.filter(course_dancecategory_id=Category,course_level=Level)
+       
+        return render(request,"Student/ViewCourses.html",{"courses":courses,"DanceLevel":recordSet})
+    else:
+        Category=DanceCategory.objects.filter(dancecategory_name=dancecategory_name).first()
+        courses=DanceCourses.objects.filter(course_dancecategory_id=Category)
+        context={"cat": Category,"courses":courses,"DanceLevel":recordSet}
+    
+    return render (request,"Student/Coursecategory.html",context)

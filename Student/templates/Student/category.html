@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Courses{% endblock %}
+    {% block content %}
+
+       
+
+
+    <div class="row posters">
+        {% for data in Category%}
+        
+            
+        <div class="col-sm-3">
+            <button type="submit" class="cardclass" id="cardclass" >
+             
+            
+            <div class="cardposter" >
+               
+                
+                    
+            <a class="cards"  href="{%url 'Student:coursecat' data.dancecategory_name%}" >
+               
+            
+                <img src="" />
+        <div class="pclass">
+            <!--<p>Category:</p><h1>{{data.course_dancecategory}}</h1>
+        <p>Trainer:<p><h1>{{data.course_tutor}}</h1>-->
+        <p><p><h1>{{data.dancecategory_name}}</h1>
+        <!--<p>Level:<p><h1>{{data.course_level}}</h1> -->
+        </div>   
+        </button>
+        </a>
+        </div>
+       
+        {%endfor%}
+        </div>
+        </div>
+    {% endblock content %} 
+      
