@@ -58,28 +58,16 @@ function hideVideo(e) {
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title"></h4>
-              <form action="{%url 'Student:favourites' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data">
-                {%csrf_token%}
-                
-                  <select name="vi" id="vi" onchange="LoadPLace(this.value)">
-                    
-                    <option value="{{data.id}}" >{{data.cv_title}}</option>
-                    
-                  </select>
-                <button type="submit" name="go" id="go" value="submit" >Like</button>
-                
-                
-            </form>
-            <form action="{%url 'Student:videofeed' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data">
+               <form action="{%url 'Student:favourites' data.cv_course.slug%}" method="POST"  enctype="multipart/form-data">
               {%csrf_token%}
               
                 <select name="vi" id="vi" onchange="LoadPLace(this.value)">
-                  
+                  {%if allVideos%}
                   <option value="{{data.id}}" >{{data.cv_title}}</option>
-                  
+                  {%endif%}
                 </select>
-                <input type="text" name="content" placeholder="Thoughts on this.">
-              <button type="submit" name="go" id="go" value="submit" >OK</button>
+              <input type="submit" value="submit" >
+          </form>
               
 
             
@@ -108,33 +96,18 @@ function hideVideo(e) {
     });
   </script>
   {%for a in allVideos%}
-<script  type="text/javascript">$('#myForm').submit(function(e){
-
+<script>$('#myForm').submit(function(e){
+  e.preventDefault();
   $.ajax({
-      url: '/student/courses/videos/{{a.cv_course.slug}}/',
-      type: 'POST',
-      
-        data:{
-          
-          fvideo:$("#vi").val(),
-          fstudent:$().val(),
-
-          
-          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-        },
-
-
+      url: 'Student:favourites',
+      type: 'post',
+      data:$('#myForm').serialize(),
       success:function(){
-         alert('saved'); // Whatever you want to do after the form is successfully submitted
+         url:'Student:viewvideo' // Whatever you want to do after the form is successfully submitted
       }
   });
 });</script>
 {%endfor%}
-{%if Add%}
-<script>
-    alert("Video added to favourites")
-</script>              
- {%endif%}     
 
    
    {% endblock content %} 

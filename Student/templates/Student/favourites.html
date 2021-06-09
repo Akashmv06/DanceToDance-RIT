@@ -15,6 +15,10 @@
           <div class="col-sm-3 colcol">
           
           <div class="video-gallery">
+          <form action="{%url 'Student:deletefav' data.id%}" method="POST">
+            {%csrf_token%}
+            <button type="submit" value="submit">Delete</button>
+          </form>
             
             <div class="gallery-item">
               <img src="{{data.fvideo.cv_thumbnail.url}}" />

@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse, HttpResponseRedirect
 from Tutor.models import CourseVideo
 from Administrator.models import DanceCourses, Tutor
 from django.shortcuts import render,redirect
@@ -69,12 +70,16 @@ def viewVideo(request,slug):
         return render(request,"Tutor/Coursevideos.html",{'allVideos':allVideos,"courses":courses,'Update':1})
     return render(request,"Tutor/Coursevideos.html",context)
 
-def deleteVideo(request):
-    allVideos=CourseVideo.objects.all()
+def deleteVideo(request,id):
+    allVideos=CourseVideo.objects.filter(id=id)
+    
     if request.session.has_key('tutor_id'):
         if request.method=="POST":
-            delvid=CourseVideo.objects.filter(id=allVideos)
-            delvid.delete()
-            return render(request,"Tutor/Coursevideos.html",{"allVideos":allVideos})
+            allVideos.delete()
+            
+            return redirect("/tutor/0/",{"allVideos":allVideos})
     else:
         return redirect("/accounts/login")
+
+def Back(request):
+    return render(request,"Tutor/back.html")

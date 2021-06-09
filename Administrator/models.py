@@ -51,7 +51,7 @@ class DanceCourses(models.Model):
         super(DanceCourses,self).save(*args,**kwargs)
     
     def __str__(self):
-        return (self.course_name)
+        return f"{self.course_name}-{self.id}"
 
         
 

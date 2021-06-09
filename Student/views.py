@@ -1,11 +1,12 @@
+from django.http.response import HttpResponseRedirect
 import Student
 from django.shortcuts import render,redirect,get_object_or_404
 from Accounts.models import StudentModel,Subscription
 from Administrator.models import News, Tutor,DanceCourses
 from django.http import HttpResponse
-from MasterEntry.models import DanceCategory, DanceLevel
+from MasterEntry.models import ComplaintType, DanceCategory, DanceLevel
 from Tutor.models import CourseVideo
-from .models import Favourites
+from .models import Favourites, Feedback, videofeedback
 import stripe
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
@@ -83,23 +84,33 @@ def viewVideo(request,slug):
     courses=DanceCourses.objects.filter(slug=slug).first()
     allVideos=CourseVideo.objects.filter(cv_course_id=courses)
     
+    
     context={"courses":courses,"allVideos":allVideos}
     return render(request,"Student/Coursevideo.html",context)
 
 def AddFavourites(request,slug):
 
     if request.session.has_key('student_id'):
-        allVideos=CourseVideo.objects.filter(slug=slug)
         
-        if request.method=='POST':
-            
+        
+        if request.method=="POST":
+            courses=DanceCourses.objects.filter(slug=slug).first()
+            allVideos=CourseVideo.objects.filter(cv_course_id=courses.id)
             a=Favourites()
+            Vobj=CourseVideo.objects.get(id=request.POST.get("vi"))
+            a.fvideo=Vobj
             a.fstudent=request.session['student_id']
-            VObj=CourseVideo.objects.get(id=request.POST.get("vi"))
-            a.fvideo=VObj
             a.save()
-            context={"allvideos":allVideos}
-            return redirect ("courses/videos/",context)
+            context={"allVideos":allVideos}
+
+            return render(request,"Student/Coursevideo.html",context)
+
+        else:
+            courses=DanceCourses.objects.filter(slug=slug).first()
+            allVideos=CourseVideo.objects.filter(cv_course_id=courses)
+            context={"allVideos":allVideos}
+            return render(request,"Student/Coursevideo.html",context,{"Add":1})
+
             
     else:
         return redirect("/accounts/login")
@@ -207,3 +218,61 @@ def Coursecat(request,dancecategory_name):
         context={"cat": Category,"courses":courses,"DanceLevel":recordSet}
     
     return render (request,"Student/Coursecategory.html",context)
+
+def videoFeed(request,slug):
+    
+    if request.session.has_key('student_id'):
+        
+        
+        if request.method=="POST":
+            courses=DanceCourses.objects.filter(slug=slug).first()
+            allVideos=CourseVideo.objects.filter(cv_course_id=courses.id)
+            sid=request.session['student_id']
+            stu=StudentModel.objects.get(id=sid)
+            a=videofeedback()
+            Vobj=CourseVideo.objects.get(id=request.POST.get("vi"))
+            a.vfvideo=Vobj
+            a.vfstudent=stu
+            a.vcontent=request.POST.get("content")
+            a.save()
+            context={"allVideos":allVideos}
+
+            return render(request,"Student/Coursevideo.html",context)
+
+        else:
+            courses=DanceCourses.objects.filter(slug=slug).first()
+            allVideos=CourseVideo.objects.filter(cv_course_id=courses)
+            context={"allVideos":allVideos}
+            return render(request,"Student/Coursevideo.html",context,{"Add":1})
+
+            
+    else:
+        return redirect("/accounts/login")
+
+def FeedBack(request):
+    if request.session.has_key('student_id'):
+        sid=request.session['student_id']
+        stu=StudentModel.objects.get(id=sid)
+        videofeed=videofeedback.objects.filter(vfstudent=stu)
+        if request.method=='POST':
+            a=Feedback()
+            a.feedstudent=stu
+            typeobj=ComplaintType.objects.get(id=request.POST.get("ftype"))
+            a.feedtype=typeobj
+            a.feedcontent=request.POST.get("fcontent")
+            a.save()
+            context={"videofeed":videofeed}
+            return redirect("/student/feedback/",context)
+        else:
+            context={"videofeed":videofeed}
+            return render(request,"Student/feedback.html",context)
+    else:
+        return redirect('/accounts/login/')
+
+def deleteFavourites(request,id):
+    if request.session.has_key('student_id'):
+        fav=Favourites.objects.filter(id=id)
+        if request.method=='POST':
+            fav.delete()
+            return redirect('/student/favourites/',{'fav':fav})
+        
