@@ -6,7 +6,6 @@
     
 
 
-
     <!-- Bootstrap -->
     
     
@@ -134,13 +133,7 @@
               .navbar-nav a:hover {
                 color:dodgerblue;
               }
-               .navbar-nav a:hover i{
-                display:none;
-                }
-              .navbar-nav a:hover b {
-                display:block;
-               }
-             
+               
               
               
 
@@ -156,7 +149,7 @@
 
 .posters
 {
-  margin-top: 44px;
+  margin-top: 91px;
 }
 
 .names-class hr {
@@ -332,7 +325,7 @@ padding: 0px 5px 10px 5px;
 
 .sidenav {
   height: 100%; /* 100% Full-height */
-  width: 88px; /* 0 width - change this with JavaScript */
+  width: 93px; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -358,7 +351,7 @@ padding: 0px 5px 10px 5px;
   font-size: 10px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center !important;
-margin-left: -9px !important;
+margin-left: -14px !important;
 }
 
 .sidenav a:hover {
@@ -540,9 +533,84 @@ margin-left: -9px !important;
   right:0;
 }
 
+ .dropdown-menu{
+  left: 1250;
+  right: 0;
+  position: absolute;
+  opacity: 0.8;
+  background: #818181;
+  border: solid;
+  border-color: dodgerblue;
 
+}
+.dropdown-toggle img{
+  width:117%
+}
+ li .divider
+{
+  color:dodgerblue;
+  opacity: 0.9;
+}
+.dropdown-menu a{
+  color:white !important;
 
+}
+.dropdown-menu a:hover{
+  color:dodgerblue !important;
 
+}
+.dropdown-menu li:hover{
+  background:dodgerblue !important;
+}
+ .subscription
+ {
+   background: dodgerblue;
+   color: white;
+   font-weight: 500;
+   text-transform: uppercase;
+   width:164px;
+   position:sticky;
+   z-index: 45;
+ }
+ .subscription:hover{
+   background: dodgerblue !important;
+   color:white !important;
+   opacity:0.7 !important;
+
+ }
+ .title{
+  color: dodgerblue;
+position: sticky !important;
+top: 12px;
+text-transform: uppercase;
+font-size: large;
+font-weight: bold;
+right: 1182;
+z-index: 2;
+
+margin-left: 30px !important;
+margin-right: 977 !important;
+
+}
+.pagetitle
+{
+  top: 50 !important;
+position: fixed;
+color: white;
+text-transform:uppercase;
+font-weight: bold;
+font-size: xxx-large;
+font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+opacity: 0.2;
+left: 110px;
+text-align: center;
+
+}
+.levelclass{
+  position: fixed;
+top: 133px;
+}
+ 
 
 
 
@@ -554,7 +622,9 @@ margin-left: -9px !important;
     </head>
 
   <body>
-   
+    {%if request.session.student_id or request.session.tutor_id or request.session.admin_id%}
+    <p class="title" style="color:dodgerblue;">Grooves N Moves</p>
+    {%endif%}
     <!--{% if request.session.student_id or request.session.tutor_id %}
       <a class="logout-butt" href="/accounts/logout"><i class="fa fa-power-off" aria-hidden="true"></i>
 <span>Logout</span>
@@ -563,22 +633,38 @@ margin-left: -9px !important;
     {% if request.session.student_id %}
     <nav class="navbar-dark " >
       <div class="navbar-nav">
+
         <!--<button class="nav-item nav-link opennav" onclick="openNav()" style=><i class="fa fa-bars" aria-hidden="true"></i></button>-->
-        <a class="btn btn-success" href="{%url 'Student:subscription'%}">Subscribe</b></a>
-        <a class="nav-item nav-link" href="/student/profile"><i class="fa fa-user" aria-hidden="true"></i><b>
-          Profile</b></a>
-        <a class="nav-item nav-link" href="/accounts/logout"><i class="fa fa-power-off" aria-hidden="true"></i><b>Logout</b></a>
+        <a class="btn btn-success subscription" href="{%url 'Student:subscription'%}" style="width: 108px;">Subscribe</b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          
+          <img src="{{request.session.student_dp}}" width="40" height="40" class="rounded-circle" style="border-radius:24px;"></a>
+          
+          <ul class="dropdown-menu">
+              <li><a href="/student/profile"> Account</a></li>
+              <li class="divider" style="background:dodgerblue !important;"></li>
+              <li><a href="/accounts/changepass/"> Change Password</a></li>
+              <li class="divider" style="background:dodgerblue !important;"></li>
+              <li><a href="/accounts/logout"> Log-out</a></li>
+          </ul>
+      </li>
+      
       
         
         
         
       </div>
+      
     </nav>
     <div id="mySidenav" class="sidenav">
+      
           
         
       <a href="/student/home"><i class="fa fa-home" aria-hidden="true"></i><p>HOME</p></a>
       <a href="/student/courses"><i class="fa fa-th-large" aria-hidden="true"></i><p>COURSES</p></a>
+      <a href="/student/coursecategories/"><i class="fa fa-filter" aria-hidden="true"></i><p>CATEGORIES</p></a>
+      <a href="/student/favourites"><i class="fa fa-gratipay" aria-hidden="true"></i><p>FAVOURITES</p></a>
+      <a href="/student/feedback"><i class="fa fa-commenting" aria-hidden="true"></i><p>FEEDBACK</p></a>
      
               
 
@@ -609,6 +695,28 @@ margin-left: -9px !important;
       
     </div>
     {%endif%}
+    {% if request.session.admin_id %}
+    <nav class="navbar-dark " >
+      <div class="navbar-nav">
+
+        <!--<button class="nav-item nav-link opennav" onclick="openNav()" style=><i class="fa fa-bars" aria-hidden="true"></i></button>-->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          
+          <img src="https://www.nicepng.com/png/detail/263-2635962_png-file-svg-admin-icon-png.png" width="40" height="40" class="rounded-circle" style="border-radius:24px;"></a>
+          
+          <ul class="dropdown-menu">
+
+              <li><a href="/accounts/logout"> Log-out</a></li>
+          </ul>
+      </li>
+     {%endif%} 
+      
+        
+        
+        
+      </div>
+      
+    </nav>
 
     
     

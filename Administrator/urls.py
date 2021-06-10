@@ -5,5 +5,6 @@ from Administrator import views
 
 app_name="Administrator"
 urlpatterns = [
-path('createnews',views.CreateNews,name="create-news"),
+path('createnews/',views.CreateNews,name="create-news"),
+path('tutors/',views.TutorAdd,name="tutors")
 ]

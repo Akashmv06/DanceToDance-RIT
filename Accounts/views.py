@@ -1,7 +1,7 @@
 
 from django.db.models.fields import AutoField, BigAutoField
 from django.urls.conf import include
-from .models import StudentModel,Subscription
+from .models import StudentModel,Subscription, adminmodel
 from Administrator.models import Tutor
 from django.http import HttpResponse
 from MasterEntry.models import District, SubscriptionType
@@ -10,7 +10,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 import stripe
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
-from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 
 
@@ -27,9 +27,11 @@ def selectAllDistrict():
 
 def studentRegister(request):
     if request.session.has_key('student_id'):
-            return redirect("/student/home")
+        return redirect("/student/home")
     elif request.session.has_key('tutor_id'):
-            return redirect("/tutor/profile")
+        return redirect("/tutor/profile")
+    elif request.session.has_key('admin_id'):
+        return redirect('/administrator/createnews/')
     DistrictRecords=selectAllDistrict()
     if request.method == 'POST':
         p=StudentModel()
@@ -55,6 +57,7 @@ def studentRegister(request):
         StudentObj = get_object_or_404(StudentModel, student_username=request.POST.get("username"),student_password=request.POST.get("password"))
         request.session["student_id"]=StudentObj.id
         request.session["student_name"]=StudentObj.student_name
+
         #messages.success(request, 'created successfully.')
           
         #return render(request, "Accounts/StudentRegistration.html",{'DistrictRecords':DistrictRecords})  
@@ -73,22 +76,32 @@ def login(request):
         
     elif request.session.has_key('tutor_id'):
         return redirect("/tutor/profile")
+    elif request.session.has_key('admin_id'):
+        return redirect("/administrator/createnews/")
     
     else:
         if request.method=='POST':
             StudentDataCount=StudentModel.objects.filter(student_username=request.POST.get("username"),student_password=request.POST.get("password")).count()
             TutorDataCount=Tutor.objects.filter(tutor_username=request.POST.get("username"),tutor_password=request.POST.get("password")).count()
+            AdminDataCount=adminmodel.objects.filter(Admin_username=request.POST.get("username"),Admin_password=request.POST.get("password")).count()
             if StudentDataCount>0:
                 StudentObj = get_object_or_404(StudentModel, student_username=request.POST.get("username"),student_password=request.POST.get("password"))
                 request.session["student_id"]=StudentObj.id
                 request.session["student_name"]=StudentObj.student_name
+                request.session["student_dp"]=StudentObj.student_dp.url
                 p=StudentModel.objects.all()
                 return redirect("/student/home",{'p':p})
             elif TutorDataCount>0:
                 Tutorobj = get_object_or_404(Tutor,tutor_username=request.POST.get("username"),tutor_password=request.POST.get("password"))
                 request.session["tutor_id"]=Tutorobj.id
                 request.session["tutor_name"]=Tutorobj.tutor_name
+                request.session["tutor_dp"]=Tutorobj.tutor_photo.url
                 return redirect("/tutor/profile")
+            elif AdminDataCount>0:
+                AdminObj=get_object_or_404(adminmodel,Admin_username=request.POST.get("username"),Admin_password=request.POST.get("password"))
+                request.session["admin_id"]=AdminObj.id
+                request.session["admin_name"]=AdminObj.Admin_username
+                return redirect("/administrator/createnews")
             else: 
                return render(request,"Accounts/Login.html",{'fail':1})
         return render(request,"Accounts/Login.html",{})

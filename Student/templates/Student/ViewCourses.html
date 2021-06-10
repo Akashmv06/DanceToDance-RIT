@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Courses{% endblock %}
     {% block content %}
+    <h1 class="pagetitle">Courses</h2>
         <form method="POST" class="levelclass" >
        {% csrf_token %}
-       <a href="" class="btn btn-success">ALL</a>
+       <a href="" class="btn btn-success subscription">ALL</a>
         {%for a in DanceLevel%}
-        <button type="submit" class="btn btn-success"name="level" value="{{a.id}}" >{{a.dancelevel_name}}</button>
+        <button type="submit" class="btn btn-success subscription"name="level" value="{{a.id}}" >{{a.dancelevel_name}}</button>
         
         {% endfor %}
         

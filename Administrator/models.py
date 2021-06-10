@@ -2,7 +2,6 @@ from django.db import models
 from django.db.models.fields import TextField
 from MasterEntry.models import Designation,DanceCategory,District,NewsType,DanceLevel, SubscriptionType
 from django.utils.text import slugify
-
 # Create your models here
 Gender=(
     ("M","Male"),
@@ -18,7 +17,7 @@ isActive=(
 
 class Tutor(models.Model):
     tutor_name=models.CharField("Name:",max_length=20,null=False)
-    tutor_contact=models.CharField("Conatct:",max_length=11,null=False)
+    tutor_contact=models.CharField("Contact:",max_length=11,null=False)
     tutor_email=models.EmailField("Email:",unique=True,null=False,help_text="Enter Valid Email")
     tutor_gender=models.CharField("Gender:",max_length=5,choices=Gender,null=False)
     tutor_photo=models.ImageField("Tutor Photo:",upload_to="TutorPhoto",null=False)

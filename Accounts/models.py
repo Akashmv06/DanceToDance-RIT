@@ -43,5 +43,7 @@ class Subscription(models.Model):
     def __str__(self):
         return f"{self.subStudent.student_name}-{self.subStudent.id}"
 
-
+class adminmodel(models.Model):
+    Admin_username=models.CharField(max_length=50,null=False)
+    Admin_password=models.CharField(max_length=50,null=False)
 
