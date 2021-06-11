@@ -4,7 +4,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from Accounts.models import StudentModel,Subscription
 from Administrator.models import News, Tutor,DanceCourses
 from django.http import HttpResponse
-from MasterEntry.models import ComplaintType, DanceCategory, DanceLevel
+from MasterEntry.models import ComplaintType, DanceCategory, DanceLevel,District
 from Tutor.models import CourseVideo
 from .models import Favourites, Feedback, videofeedback
 import stripe
@@ -275,4 +275,32 @@ def deleteFavourites(request,id):
         if request.method=='POST':
             fav.delete()
             return redirect('/student/favourites/',{'fav':fav})
-        
+
+def updateDp(request,id):
+    if request.session.has_key('student_id'):
+        if request.method=='POST':
+            students=StudentModel.objects.get(id=id)
+            students.student_dp=request.FILES.get("dp")
+            students.save()
+            return redirect("/student/profile/")
+    else:
+        return redirect("/accounts/login/")
+    
+    
+def updateprofile(request,id):
+    if request.session.has_key('student_id'):
+        if request.method=='POST':
+            students=StudentModel.objects.get(id=id)
+            dis=District.objects.all()
+            students.student_name=request.POST.get("sname")
+            students.student_contact=request.POST.get("scon")
+            students.student_email=request.POST.get("semail")
+            students.student_dob=request.POST.get("sdob")
+            disobj=District.objects.get(id=request.POST.get("sdis"))
+            students.student_district=disobj
+            students.student_username=request.POST.get("suser")
+            students.save()
+            return redirect("/student/profile/",{"dis":dis})
+    else:
+        return redirect("/accounts/login/")
+    

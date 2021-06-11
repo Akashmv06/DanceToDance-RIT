@@ -21,5 +21,7 @@ path("coursecategories/",views.CategoryView,name="categories"),
 path("coursecategories/<dancecategory_name>/",views.Coursecat,name="coursecat"),
 path("comment/video/<slug>/",views.videoFeed,name="videofeed"),
 path('feedback/',views.FeedBack,name="feedback"),
-path('student/favourites/0/<int:id>',views.deleteFavourites,name="deletefav"),
+path('favourites/0/<int:id>',views.deleteFavourites,name="deletefav"),
+path('updatedp/',views.updateDp,name="updatedp"),
+path('updateprofile/',views.updateprofile,name="updateprofile"),
 ]

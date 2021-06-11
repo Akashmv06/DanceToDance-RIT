@@ -4,6 +4,9 @@
 
     <a  href=""class="btn btn-danger" data-toggle="modal" data-target="#mymodal"><i class="fa fa-video-camera" aria-hidden="true"></i>Upload
       </a> 
+    
+   
+    
         
         
           <h1 class="section-header"></h1>
@@ -13,6 +16,11 @@
           <div class="col-sm-3 colcol">
            
           <div class="video-gallery">
+            <form action="{%url 'Tutor:videofeed' data.id%}" method="POST">
+              {%csrf_token%}
+              <button type="submit" value="submit">Video-Feedback</button> 
+              </form>
+            
             <button class="btn btn-danger" data-toggle="modal" data-target="#mydelete">Delete</button>
         
             <div class="gallery-item">

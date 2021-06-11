@@ -3,6 +3,11 @@
     {% block content %}
    
     {% for tu in tutors %}
+    <form method="POST" action="{%url 'Tutor:updatedp' tu.id%}" enctype="multipart/form-data">
+        {%csrf_token%}
+        <input type="file" name="dp" id="dp">
+        <button type="submit" value="submit">Update</button>
+        </form>
     <form action="" enctype="multipart/form-data">
     
         <img
@@ -25,5 +30,7 @@
 
     </div>
     </form>
+
+
     {%endfor%}
     {% endblock content %}

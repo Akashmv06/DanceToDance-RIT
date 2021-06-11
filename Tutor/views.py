@@ -1,8 +1,9 @@
+from Student.models import videofeedback
 from django.http.response import HttpResponse, HttpResponseRedirect
 from Tutor.models import CourseVideo
 from Administrator.models import DanceCourses, Tutor
 from django.shortcuts import render,redirect
-from MasterEntry.models import DanceCategory
+from MasterEntry.models import DanceCategory, District
 
 # Create your views here.
 def CreatePlayList(request):
@@ -83,3 +84,39 @@ def deleteVideo(request,id):
 
 def Back(request):
     return render(request,"Tutor/back.html")
+
+def updateDp(request,id):
+    if request.session.has_key('tutor_id'):
+        if request.method=='POST':
+            tutors=Tutor.objects.get(id=id)
+            tutors.tutor_photo=request.FILES.get("dp")
+            tutors.save()
+            return redirect("/tutor/profile/")
+    else:
+        return redirect("/accounts/login/")
+        
+def updateProfile(request,id):
+    if request.session.has_key('tutor_id'):
+        if request.method=='POST':
+            tutors=Tutor.objects.get(id=id)
+            dis=District.objects.all()
+            tutors.tutor_name=request.POST.get("tname")
+            tutors.tutor_contact=request.POST.get("tcon")
+            tutors.tutors_email=request.POST.get("temail")
+            tutors.tutors_dob=request.POST.get("tdob")
+            disobj=District.objects.get(id=request.POST.get("tdis"))
+            tutors.tutor_district=disobj
+            tutors.save()
+            return redirect("/tutor/profile/",{"dis":dis})
+    else:
+        return redirect("/accounts/login/")
+
+def videofeed(request,id):
+    allVideos=CourseVideo.objects.filter(id=id).first()
+    feed=videofeedback.objects.filter(vfvideo=allVideos)
+    return render(request,"Tutor/videofeed.html",{"feed":feed,"allVideos":allVideos})
+             
+
+
+            
+    

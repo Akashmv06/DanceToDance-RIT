@@ -6,5 +6,12 @@ from Administrator import views
 app_name="Administrator"
 urlpatterns = [
 path('createnews/',views.CreateNews,name="create-news"),
-path('tutors/',views.TutorAdd,name="tutors")
+path('tutors/',views.TutorAdd,name="tutors"),
+path('courses/<int:id>',views.Courses,name="courses"),
+path('courses/videos/<slug>',views.viewVideo,name="viewvideo"),
+path('course/delete/<int:id>/',views.deleteCourse,name="deletecourse"),
+path('tutors/delete/<int:id>/',views.deleteTutor,name="deletetutor"),
+path('videofeed/',views.VideoFeed,name="videofeed"),
+path('feedback/',views.feedback,name="feed"),
+
 ]

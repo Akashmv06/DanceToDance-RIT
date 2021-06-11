@@ -8,6 +8,10 @@
         {%for d in Tutor%}
         
         <div class="col-sm-3">
+        <form action="{%url 'Administrator:deletetutor' d.id%}" method="POST">
+            {%csrf_token%}
+            <button type="submit" value="submit">Delete</button>
+        </form>
             <button type="button" class="cardclass" data-toggle="modal" data-target="#my{{forloop.counter}}modal">
             <div class="cardposter">
 
@@ -34,6 +38,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">{{d.tutor_name}}</h4>
+            <a href="{%url 'Administrator:courses' d.id%}" class="btn btn-success subscription">Courses</a>
           </div>
           <div class="modal-body">
           <img src="{{d.tutor_photo.url}}" />

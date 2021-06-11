@@ -635,7 +635,9 @@ top: 133px;
       <div class="navbar-nav">
 
         <!--<button class="nav-item nav-link opennav" onclick="openNav()" style=><i class="fa fa-bars" aria-hidden="true"></i></button>-->
+        
         <a class="btn btn-success subscription" href="{%url 'Student:subscription'%}" style="width: 108px;">Subscribe</b></a>
+      
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           
           <img src="{{request.session.student_dp}}" width="40" height="40" class="rounded-circle" style="border-radius:24px;"></a>
@@ -643,7 +645,7 @@ top: 133px;
           <ul class="dropdown-menu">
               <li><a href="/student/profile"> Account</a></li>
               <li class="divider" style="background:dodgerblue !important;"></li>
-              <li><a href="/accounts/changepass/"> Change Password</a></li>
+              <li><a href="/student/changepass/"> Change Password</a></li>
               <li class="divider" style="background:dodgerblue !important;"></li>
               <li><a href="/accounts/logout"> Log-out</a></li>
           </ul>
@@ -680,9 +682,18 @@ top: 133px;
       <nav class="navbar-dark " >
         <div class="navbar-nav">
       
-      <a class="nav-item nav-link" href="/tutor/profile"><i class="fa fa-user" aria-hidden="true"></i><b>
-        Profile</b></a> 
-        <a class="nav-item nav-link" href="/accounts/logout"><i class="fa fa-power-off" aria-hidden="true"></i><b>Logout</b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          
+            <img src="{{request.session.tutor_photo}}" width="40" height="40" class="rounded-circle" style="border-radius:24px;"></a>
+            
+            <ul class="dropdown-menu">
+                <li><a href="/tutor/profile"> Account</a></li>
+                <li class="divider" style="background:dodgerblue !important;"></li>
+                <li><a href=""> Change Password</a></li>
+                <li class="divider" style="background:dodgerblue !important;"></li>
+                <li><a href="/accounts/logout"> Log-out</a></li>
+            </ul>
+        </li>
        
       </div>
     </nav>

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Video Feed{% endblock %}
+    {% block content %}
+    {%for a in feed%}
+    <p class="badge badge success">{{a.vfvideo.cv_title}}</p>
+    <p>course:<p>
+    <h1>{{a.vfvideo.cv_course.course_name}}</h1>
+    <h2>{{a.vfsend}}</h1>
+    <p>Your Feedback:</p>
+    <h1>{{a.vcontent}}</p>
+    {%endfor%}
+
+    
+
+    
+
+
+
+    {% endblock content%}

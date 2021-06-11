@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+    {% block content %}
+
+    <a  href=""class="btn btn-danger" data-toggle="modal" data-target="#myadd">Add</a> 
+    <div class="row posters">
+        {% for data in courses%}
+        
+      
+    
+        <div class="col-sm-3">
+            <button type="button" class="cardclass" id="cardclass" data-toggle="modal" data-target="#my{{forloop.counter}}modal" >
+            
+        
+         {%if data.is_premium%}   
+            <div class="cardposter" style="box-shadow: 0 0 10px 0  #1e90ff;">
+                
+            
+            <a class="cards" href="{%url 'Administrator:viewvideo' data.slug%}">
+           
+            
+                <img src="{{data.course_photo.url}}" />
+        <div class="pclass">
+            <!--<p>Category:</p><h1>{{data.course_dancecategory}}</h1>
+        <p>Trainer:<p><h1>{{data.course_tutor}}</h1>-->
+        <p>Course Name:<p><h1>{{data.course_name}}</h1>
+        <!--<p>Level:<p><h1>{{data.course_level}}</h1> -->
+        </div>   
+        </button>
+        <form action="{%url 'Administrator:deletecourse' data.id%}" method="POST">
+            {%csrf_token%}
+            <button type="submit" value="submit">Delete</button>
+        </form>
+        </a>
+        </div>
+        
+        {%else%}
+         <div class="cardposter">
+            <a class="cards" href="{%url 'Administrator:viewvideo' data.slug%}">
+            
+                <img src="{{data.course_photo.url}}" />
+        <div class="pclass">
+            <!--<p>Category:</p><h1>{{data.course_dancecategory}}</h1>
+        <p>Trainer:<p><h1>{{data.course_tutor}}</h1>-->
+        <p>Course Name:<p><h1>{{data.course_name}}</h1>
+        <!--<p>Level:<p><h1>{{data.course_level}}</h1> -->
+        </div>   
+        </button>
+        </a>
+        </div>
+        {%endif%}
+        
+      
+        {%endfor%}
+
+        </div>
+        </div>
+
+            <!-- modal -->
+    <div class="modal fade-scale" id="myadd" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+         <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title"></h4>
+          </div>
+          <div class="modal-body">
+         <form method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        <p>Dance Style</p>
+                <select name="ccat" id="ccat" onchange="LoadPLace(this.value)">
+                    <option>--select--</option>
+                    {%for data in cat%}
+                        <option value="{{  data.id }}">{{data.dancecategory_name}}</option>
+                    {% endfor %}
+                </select><br> 
+                <p>Level</p>
+                <select name="clev" id="clev" onchange="LoadPLace(this.value)">
+                    <option>--select--</option>
+                    {%for data in level%}
+                        <option value="{{  data.id }}">{{data.dancelevel_name}}</option>
+                    {% endfor %}
+                </select><br> 
+        
+            <p>Course name<p>
+                <input type="text" class="" name="cname"><br>
+            <p>Course description<p>
+                <textarea name="cdes" id="" cols="50" rows="4"></textarea><br>
+            <p>Is premium</p>
+            <input type="hidden"name="ispre" value="False" checked>
+            <input type="checkbox" value="True" name="ispre"> 
+              
+            <label>Upload Image</label><br> 
+                <input type="file" name="cphoto" id="cphoto"></b>
+            
+
+        
+        <button type="submit" class="" value="submit">Create News</button>
+        
+        
+    
+    
+    </form>
+{% endblock content%}

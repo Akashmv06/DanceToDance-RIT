@@ -57,6 +57,7 @@ def studentRegister(request):
         StudentObj = get_object_or_404(StudentModel, student_username=request.POST.get("username"),student_password=request.POST.get("password"))
         request.session["student_id"]=StudentObj.id
         request.session["student_name"]=StudentObj.student_name
+        request.session["student_dp"]=StudentObj.student_dp.url
 
         #messages.success(request, 'created successfully.')
           
@@ -95,7 +96,7 @@ def login(request):
                 Tutorobj = get_object_or_404(Tutor,tutor_username=request.POST.get("username"),tutor_password=request.POST.get("password"))
                 request.session["tutor_id"]=Tutorobj.id
                 request.session["tutor_name"]=Tutorobj.tutor_name
-                request.session["tutor_dp"]=Tutorobj.tutor_photo.url
+                request.session["tutor_photo"]=Tutorobj.tutor_photo.url
                 return redirect("/tutor/profile")
             elif AdminDataCount>0:
                 AdminObj=get_object_or_404(adminmodel,Admin_username=request.POST.get("username"),Admin_password=request.POST.get("password"))
