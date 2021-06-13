@@ -85,6 +85,7 @@ def viewVideo(request,slug):
     allVideos=CourseVideo.objects.filter(cv_course_id=courses)
     
     
+    
     context={"courses":courses,"allVideos":allVideos}
     return render(request,"Student/Coursevideo.html",context)
 
@@ -95,21 +96,26 @@ def AddFavourites(request,slug):
         
         if request.method=="POST":
             courses=DanceCourses.objects.filter(slug=slug).first()
-            allVideos=CourseVideo.objects.filter(cv_course_id=courses.id)
-            a=Favourites()
+            Videos=CourseVideo.objects.get(cv_course_id=courses.id)
+            allVideos=Favourites()
             Vobj=CourseVideo.objects.get(id=request.POST.get("vi"))
-            a.fvideo=Vobj
-            a.fstudent=request.session['student_id']
-            a.save()
-            context={"allVideos":allVideos}
+            allVideos.fvideo=Vobj
+            allVideos.is_fav=True
+            allVideos.fstudent=request.session['student_id']
+            allVideos.save()
+            context={"allVideo":allVideos,"allVideo":Videos}
+            
+                
+            
 
-            return render(request,"Student/Coursevideo.html",context)
+            return redirect("Student:subvideos",slug=slug)
 
         else:
             courses=DanceCourses.objects.filter(slug=slug).first()
-            allVideos=CourseVideo.objects.filter(cv_course_id=courses)
-            context={"allVideos":allVideos}
-            return render(request,"Student/Coursevideo.html",context,{"Add":1})
+            Videos=CourseVideo.objects.filter(cv_course_id=courses)
+            allVideos=Favourites.objects.get(fvideo=Videos)
+            context={"allVideos":allVideos,"allVideo":Videos}
+            return redirect("Student:subvideos",slug=slug)
 
             
     else:
@@ -120,8 +126,12 @@ def AddFavourites(request,slug):
 def viewFavourites(request):
     if request.session.has_key('student_id'):
         sid=request.session['student_id']
-        fav=Favourites.objects.filter(fstudent=sid)
-        return render(request,"Student/favourites.html",{"fav":fav})
+        allVideos=Favourites.objects.filter(fstudent=sid)
+        
+        
+        
+        return render(request,"Student/favourites.html",{"allVideos":allVideos})
+        
     else:
         return redirect("/accounts/login")
 
@@ -164,16 +174,19 @@ def subscription(request):
                 expiry = datetime.now() + timedelta(30)
                 profile.pro_expiry_date = expiry
                 profile.save()
+                request.session['is_pro']=profile.is_pro
             elif charge['amount'] == 1100000:
                 profile.subscription_type = 'Y'
                 profile.is_pro = True
                 expiry = datetime.now() + timedelta(365)
                 profile.pro_expiry_date = expiry
                 profile.save()
+                
+                request.session['is_pro']=profile.is_pro
         
         print(charge)
         
-        return redirect("/student/success/")
+        return redirect("/student/success/",{"profile":profile})
           
             
    
@@ -190,6 +203,8 @@ def videoSub(request,slug):
     if sub.exists():
         courses=DanceCourses.objects.filter(slug=slug).first()
         allVideos=CourseVideo.objects.filter(cv_course_id=courses)
+        a=get_object_or_404(Subscription,subStudent_id=stu.id)
+        request.session['is_pro']=a.is_pro
     
         context={"courses":courses,"allVideos":allVideos}
         return render(request,"Student/Coursevideo.html",context)

@@ -91,6 +91,11 @@ def login(request):
                 request.session["student_name"]=StudentObj.student_name
                 request.session["student_dp"]=StudentObj.student_dp.url
                 p=StudentModel.objects.all()
+                sub=Subscription.objects.filter(subStudent=StudentObj)
+                if sub.exists():
+                    a=get_object_or_404(Subscription,subStudent=StudentObj)
+                    request.session['is_pro']=a.is_pro
+                
                 return redirect("/student/home",{'p':p})
             elif TutorDataCount>0:
                 Tutorobj = get_object_or_404(Tutor,tutor_username=request.POST.get("username"),tutor_password=request.POST.get("password"))

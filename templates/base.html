@@ -97,18 +97,92 @@
               margin-top: 7px;
             }
             .modal-content{
+              
               margin-top: 62px;
+              background: #8181818f;
+              border: ridge;
+    
+              border-color: dodgerblue;
             }
+
+            .videoframe{
+              margin-top: 43px;
+              background: transparent;
+              width: 946;
+              right: 228px;
+              top: -56px;
+              border:none !important
+            }
+
+            .videomodal {
+              width: 100%;
+              border-radius: 12px;
+              
+           
+             
+            }
+            .vimeo-popup:hover{
+              color:transparent !important
+            }
+            .vimeo-popup:focus{
+              color: transparent !important;
+            }
+            
+            
+            
             .fade-scale{
               margin-top: 48px;
             }
             .modal-body img{
               width:100%;
             }
-            .modal-body video{
-              width:100%;
+            
+            
+            .noheader{
+              border-bottom: none;
             }
 
+            .thoughts{
+              width: 27% !important;
+              position: relative;
+              z-index: 342 !important;
+              top: 93px !important;
+              left: 611 !important;
+            }
+            .commentbtn{
+              position: relative;
+              top: 92 !important;
+              z-index: 350 !important;
+              left: 571 !important;
+              background: dodgerblue;
+              border-style: none !important;
+              
+              border-radius: 6px !important;
+              width: 33px !important;
+              height: 28px !important;
+              opacity: 0.8 !important;
+
+            }
+            .favourites{
+              position: absolute;
+              top: 124px;
+              z-index: 350;
+              left: 879px;
+              width: 39;
+              height: 30px;
+              border-radius: 7px;
+              background: dodgerblue;
+              opacity: 0.9;
+              border: none;
+            }
+
+            
+            .modal-title{
+              font-size: 18px;
+color: white;
+text-align: center;
+text-transform: full-width;
+            }
             .navbar-nav  .fa-bars{
               margin-left: -1207px;
               font-size: 28px;
@@ -538,10 +612,19 @@ margin-left: -14px !important;
   right: 0;
   position: absolute;
   opacity: 0.8;
-  background: #818181;
+  background: #181818;
   border: solid;
   border-color: dodgerblue;
 
+}
+
+.subbtn{
+  color: #fff;
+background-color: dodgerblue;
+border-color: ;
+position: relative;
+top: 26px;
+left: 517;
 }
 .dropdown-toggle img{
   width:117%
@@ -611,8 +694,117 @@ text-align: center;
 top: 133px;
 }
  
+.deletefav{
+  position: relative;
+top: 47px;
+z-index: 259;
+left: 119px;
+}
 
+.uploadvid{
+  background: dodgerblue;
+border: none;
+position: absolute;
+left: 1412;
+top: 59px;
+}
+.feedback{
+  font-size: 13px;
+color: dodgerblue;
+position: absolute;
+top: 79px;
+text-transform: full-width;
+}
+.content{
+  font-size: 19px;
+border: ridge;
 
+width:50%;
+border-radius: 16px;
+
+border-color: dodgerblue;
+color: #fff;
+position: absolute;
+}
+
+.datesend{
+  font-size: 9px;
+position: absolute;
+left: 849;
+top: 151;
+color: #818181;
+}
+.feedtitle
+{
+  background: dodgerblue;
+}
+.content p{
+  margin-left: 11px;
+margin-top: 3px;
+}
+.newscontent{
+  font-size: 28px;
+color: white;
+text-align-last: auto;
+background: black;
+border-radius: 13px;
+}
+.newscontent p{
+  font-size: 29px;
+height: 39px;
+margin-left: 9px;
+text-transform: capitalize;
+}
+.fa-map-marker{
+  position: relative;
+top: -17px;
+left: 286px;
+font-size: 23px;
+color: #101010;
+}
+
+.marker p{
+  position: relative !important;
+top: -38px !important;
+left: 302px !important;
+font-size: 21px !important;
+color: #ffffff;
+opacity: 0.7;
+text-transform: uppercase;
+font-weight: normal;
+}
+.newscalendar{
+  position: relative;
+    top: -46px;
+    left: 283;
+    font-size: 21px;
+    color: #101010;
+}
+
+.calendar p{
+  position: relative;
+top: -67px;
+font-size: 21px;
+left: 308;
+text-transform: uppercase;
+color: #ffffff;
+opacity: 0.7;
+}
+.newsmodal{
+  position: relative;
+padding: 15px;
+height: 208%;
+}
+.videofeedbackbtn
+{
+  border: none;
+width: 38%;
+height: 28px;
+border-radius: 4px;
+position: relative;
+top: 88px;
+right: -33px;
+}
 
 
 
@@ -630,14 +822,19 @@ top: 133px;
 <span>Logout</span>
       </a>
       {%endif%}-->
+    
     {% if request.session.student_id %}
+    
     <nav class="navbar-dark " >
       <div class="navbar-nav">
 
         <!--<button class="nav-item nav-link opennav" onclick="openNav()" style=><i class="fa fa-bars" aria-hidden="true"></i></button>-->
-        
+       {%if request.session.is_pro%} 
+        <a class="btn btn-success subscription" href="{%url 'Student:subscription'%}" style="width: 108px; display:none;">Subscribe</b></a>
+        {%else%}
         <a class="btn btn-success subscription" href="{%url 'Student:subscription'%}" style="width: 108px;">Subscribe</b></a>
-      
+        {%endif%}
+        
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           
           <img src="{{request.session.student_dp}}" width="40" height="40" class="rounded-circle" style="border-radius:24px;"></a>
@@ -677,6 +874,7 @@ top: 133px;
       
     </div>
     {%endif%}
+    
       
       {% if request.session.tutor_id %}
       <nav class="navbar-dark " >
@@ -689,7 +887,7 @@ top: 133px;
             <ul class="dropdown-menu">
                 <li><a href="/tutor/profile"> Account</a></li>
                 <li class="divider" style="background:dodgerblue !important;"></li>
-                <li><a href=""> Change Password</a></li>
+                <li><a href="/tutor/changepassword/"> Change Password</a></li>
                 <li class="divider" style="background:dodgerblue !important;"></li>
                 <li><a href="/accounts/logout"> Log-out</a></li>
             </ul>

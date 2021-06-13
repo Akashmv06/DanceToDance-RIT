@@ -34,11 +34,11 @@
           <div class="modal-header">
             <h4 class="modal-title">{{d.news_title}}</h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body newsmodal">
           <img src="{{d.news_poster.url}}" />
-          <h2>Content:{{d.news_content}}</h2>
-          <h2>Location:{{d.news_loc}}</h2>
-          <h2>Date:{{d.news_date}}</h2>
+          <h2 class="newscontent"><p>{{d.news_content}}</p></h2>
+          <h2 class="marker"><i class="fa fa-map-marker" aria-hidden="true"></i><p>{{d.news_loc}}</p></h2>
+          <h2 class="calendar"><i class="fa fa-calendar newscalendar" aria-hidden="true"></i><p>{{d.news_date}}</p></h2>
           
           
 

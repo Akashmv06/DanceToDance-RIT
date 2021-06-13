@@ -1,14 +1,47 @@
 {% extends 'base.html' %}
 {% block title %}Video Feed{% endblock %}
     {% block content %}
+    
     {%for a in feed%}
+    {%if a.vview%}
     <p class="badge badge success">{{a.vfvideo.cv_title}}</p>
     <p>course:<p>
     <h1>{{a.vfvideo.cv_course.course_name}}</h1>
     <h2>{{a.vfsend}}</h1>
     <p>Your Feedback:</p>
     <h1>{{a.vcontent}}</p>
+        
+    <form method="POST" action="{%url 'Tutor:likefeed' a.vfvideo.id%}" >
+        {%csrf_token%}
+        
+        <button type="submit" value="submit">Unlike</button>
+    
+
+    </form> 
+   
+    {%else%}
+    
+    
+    <p class="badge badge success">{{a.vfvideo.cv_title}}</p>
+    <p>course:<p>
+    <h1>{{a.vfvideo.cv_course.course_name}}</h1>
+    <h2>{{a.vfsend}}</h1>
+    <p>Your Feedback:</p>
+    <h1>{{a.vcontent}}</p>
+        
+    <form method="POST" action="{%url 'Tutor:likefeed' a.vfvideo.id%}" >
+        {%csrf_token%}
+        
+        <button type="submit" value="submit">Like</button>
+    
+
+    </form> 
+    {%endif%}
     {%endfor%}
+
+        
+
+    
 
     
 

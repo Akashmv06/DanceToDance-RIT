@@ -48,6 +48,7 @@ function hideVideo(e) {
 }
     </script>  
  {%for data in allVideos%}
+    {%if data.is_fav%}
       <!-- modal -->
       
       <div class="modal fade-scale" id="my{{forloop.counter}}modal" role="dialog">
@@ -55,37 +56,44 @@ function hideVideo(e) {
         
           <!-- Modal content-->
           
-          <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-content videoframe">
+            <div class="modal-header noheader">
               <h4 class="modal-title"></h4>
-              <form action="{%url 'Student:favourites' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data">
+          
+              <form action="{%url 'Student:favourites' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data"style="display:none;>
                 {%csrf_token%}
                 
-                  <select name="vi" id="vi" onchange="LoadPLace(this.value)">
+                  <select name="vi" id="vi" onchange="LoadPLace(this.value)"style="display:none;">
                     
-                    <option value="{{data.id}}" >{{data.cv_title}}</option>
+                    <option value="{{data.id}}" selected >{{data.cv_title}}</option>
                     
                   </select>
-                <button type="submit" name="go" id="go" value="submit" >Like</button>
+                
+                  
+                <button type="submit" class="favourites" name="go" id="go" value="submit"><i class="fa fa-gratipay" aria-hidden="true"></i></button>
+                
                 
                 
             </form>
+            
+            
+
             <form action="{%url 'Student:videofeed' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data">
               {%csrf_token%}
               
-                <select name="vi" id="vi" onchange="LoadPLace(this.value)">
+                <select name="vi" id="vi" onchange="LoadPLace(this.value)"style="display:none;">
                   
-                  <option value="{{data.id}}" >{{data.cv_title}}</option>
+                  <option value="{{data.id}}" selected >{{data.cv_title}}</option>
                   
                 </select>
-                <input type="text" name="content" placeholder="Thoughts on this.">
-              <button type="submit" name="go" id="go" value="submit" >OK</button>
+                <input type="text" class="thoughts" name="content" placeholder="Thoughts on this.">
+              <button type="submit" class="commentbtn" name="go" id="go" value="submit" >OK</button>
               
 
             
             </div>
             <div class="modal-body">
-            <video class="" controls="controls"  ><source src="{{data.cv_video.url}}" type="video/mp4"/></video>  
+            <video class="videomodal" controls="controls"  ><source src="{{data.cv_video.url}}" type="video/mp4"/></video>  
             <h2></h2>
             <h2></h2>
             <h2></h2>
@@ -98,7 +106,67 @@ function hideVideo(e) {
           
         </div>
       </div>
-      <!-- modal end -->                  
+      <!-- modal end --> 
+      {%else%}  
+         <!-- modal -->
+      
+         <div class="modal fade-scale" id="my{{forloop.counter}}modal" role="dialog">
+          <div class="modal-dialog">
+          
+            <!-- Modal content-->
+            
+            <div class="modal-content videoframe">
+              <div class="modal-header noheader">
+                <h4 class="modal-title"></h4>
+            
+                <form action="{%url 'Student:favourites' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data">
+                  {%csrf_token%}
+                  
+                    <select name="vi" id="vi" onchange="LoadPLace(this.value)"style="display: none;">
+                      
+                      <option value="{{data.id}}" selected >{{data.cv_title}}</option>
+                      
+                    </select>
+                  
+                    
+                  <button type="submit" class="favourites" name="go" id="go" value="submit"><i class="fa fa-gratipay" aria-hidden="true"></i></button>
+                  
+                  
+                  
+              </form>
+              
+              
+  
+              <form action="{%url 'Student:videofeed' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data">
+                {%csrf_token%}
+                
+                  <select name="vi" id="vi" onchange="LoadPLace(this.value)"style="display:none;">
+                    
+                    <option value="{{data.id}}" selected >{{data.cv_title}}</option>
+                    
+                  </select>
+                  <input type="text" class="thoughts" name="content" placeholder="Thoughts on this.">
+                <button type="submit" class="commentbtn" name="go" id="go" value="submit" >OK</button>
+                
+  
+              
+              </div>
+              <div class="modal-body">
+              <video class="videomodal" controls="controls"  ><source src="{{data.cv_video.url}}" type="video/mp4"/></video>  
+              <h2></h2>
+              <h2></h2>
+              <h2></h2>
+              
+              
+  
+              
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <!-- modal end --> 
+        {%endif%}               
    {%endfor%}   
         
    <script>
@@ -134,7 +202,8 @@ function hideVideo(e) {
 <script>
     alert("Video added to favourites")
 </script>              
- {%endif%}     
+ {%endif%}    
+
 
    
    {% endblock content %} 

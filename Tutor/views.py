@@ -2,7 +2,7 @@ from Student.models import videofeedback
 from django.http.response import HttpResponse, HttpResponseRedirect
 from Tutor.models import CourseVideo
 from Administrator.models import DanceCourses, Tutor
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from MasterEntry.models import DanceCategory, District
 
 # Create your views here.
@@ -114,9 +114,53 @@ def updateProfile(request,id):
 def videofeed(request,id):
     allVideos=CourseVideo.objects.filter(id=id).first()
     feed=videofeedback.objects.filter(vfvideo=allVideos)
-    return render(request,"Tutor/videofeed.html",{"feed":feed,"allVideos":allVideos})
+    f=get_object_or_404(videofeedback,vfvideo=allVideos)
+    
+            
+    
+    return render(request,"Tutor/videofeed.html",{"feed":feed,"allVideos":allVideos,"f":f})
              
-
+def likefeed(request,id):
+    allVideos=CourseVideo.objects.filter(id=id).first()
+    
+    if request.method=='POST':
+        feed=videofeedback.objects.get(vfvideo_id=allVideos)
+        if feed.vview==False:
+            
+            feed.vview=True
+            feed.save()
+            context={"feed":feed}
+            return redirect("Tutor:videofeed",id=id)
+                
+        else:
+            
+            feed.vview=False
+            feed.save()
+            context={"feed":feed}
+            return redirect("Tutor:videofeed",id=id)
+    
+def ChangePassword(request):
+    if request.session.has_key('tutor_id'):
+        if request.method=='POST':
+            currentPassword=request.POST.get("txtCurrentPassword")
+            newPassword=request.POST.get("txtNewPassword")
+            confirmPassword=request.POST.get("txtConfirmNewPassword")
+            TutorData=Tutor.objects.filter(student_password=currentPassword).count()
+            if TutorData>0:
+                if newPassword==confirmPassword:
+                    Tobj=Tutor.objects.get(student_password=currentPassword)
+                    Tobj.student_password=newPassword
+                    Tobj.save()
+                    return redirect("/tutor/profile")
+                else:
+                    return HttpResponse("Password Mismatch")
+            else:
+                return HttpResponse("Current password Does not Exist!!!")
+        return render(request,"Tutor/Changepassword.html",{})
+    else:
+        return redirect("/accounts/login")              
+                
+    
 
             
     

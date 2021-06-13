@@ -11,13 +11,14 @@
 
             
             
-          {%for data in fav%}
+          {%for data in allVideos%}
           <div class="col-sm-3 colcol">
           
           <div class="video-gallery">
-          <form action="{%url 'Student:deletefav' data.id%}" method="POST">
+          <form action="{%url 'Student:deletefav' data.id%}" method="POST"style="margin-top: -49px;">
             {%csrf_token%}
-            <button type="submit" value="submit">Delete</button>
+            <button type="submit" class="btn btn-danger deletefav" value="submit" style="top: 60px;"><i class="fa fa-trash" aria-hidden="true"></i>
+</button>
           </form>
             
             <div class="gallery-item">
@@ -50,7 +51,7 @@ function hideVideo(e) {
     $('video-gallery', this).get(0).pause(); 
 }
     </script>  
- {%for data in fav%}
+ {%for data in allVideos%}
       <!-- modal -->
       
       <div class="modal fade-scale" id="my{{forloop.counter}}modal" role="dialog">
@@ -58,13 +59,13 @@ function hideVideo(e) {
         
           <!-- Modal content-->
           
-          <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-content videoframe">
+            <div class="modal-header noheader">
               <h4 class="modal-title"></h4>
               
             </div>
             <div class="modal-body">
-            <video class="" controls="controls"  ><source src="{{data.fvideo.cv_video.url}}" type="video/mp4"/></video>  
+            <video class="videomodal" controls="controls"  ><source src="{{data.fvideo.cv_video.url}}" type="video/mp4"/></video>  
             <h2></h2>
             <h2></h2>
             <h2></h2>

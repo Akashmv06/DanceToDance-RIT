@@ -12,6 +12,7 @@ class Favourites(models.Model):
     fvideo=models.ForeignKey(CourseVideo,on_delete=models.SET_NULL,null=True,verbose_name="Video:")
     fdate=models.DateTimeField("Date & Time:",auto_now_add=True)
     slug=models.SlugField(blank=True)
+    is_fav=models.BooleanField(default=False)
     def save(self,*args,**kwargs):
         self.slug=slugify(self.fvideo.cv_course)
         super(Favourites,self).save(*args,**kwargs)
