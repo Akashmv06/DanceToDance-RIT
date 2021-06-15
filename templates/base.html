@@ -621,14 +621,12 @@ margin-left: -14px !important;
 .subbtn{
   color: #fff;
 background-color: dodgerblue;
-border-color: ;
+
 position: relative;
 top: 26px;
 left: 517;
 }
-.dropdown-toggle img{
-  width:117%
-}
+
  li .divider
 {
   color:dodgerblue;
@@ -687,11 +685,13 @@ font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans
 opacity: 0.2;
 left: 110px;
 text-align: center;
+z-index: 1;
 
 }
 .levelclass{
   position: fixed;
 top: 133px;
+z-index: 1;
 }
  
 .deletefav{
@@ -708,32 +708,10 @@ position: absolute;
 left: 1412;
 top: 59px;
 }
-.feedback{
-  font-size: 13px;
-color: dodgerblue;
-position: absolute;
-top: 79px;
-text-transform: full-width;
-}
-.content{
-  font-size: 19px;
-border: ridge;
 
-width:50%;
-border-radius: 16px;
 
-border-color: dodgerblue;
-color: #fff;
-position: absolute;
-}
 
-.datesend{
-  font-size: 9px;
-position: absolute;
-left: 849;
-top: 151;
-color: #818181;
-}
+
 .feedtitle
 {
   background: dodgerblue;
@@ -805,7 +783,115 @@ position: relative;
 top: 88px;
 right: -33px;
 }
+.alertp{
+  font-size: 11px !important;
+color: red !important;
+font-weight: bolder !important;
+position: relative !important;
+top: -20px !important;
+left: 9px !important;
+}
+.fa-lock{
+  position: relative;
+right: -121px;
+top: -8px;
+font-size: 19px;
+}
+.categ{
+  width: 104% !important;
+height: 108% !important;
+display: block !important;
+margin: 10px auto !important;
+border-bottom: none !important;
+padding: -1px 0px 0px 0px !important;
+position: relative !important;
+top: -23px !important;
+border-radius: 17px !important;
+right: 5px !important;
+}
 
+.categoryp{
+  font-size: 49px !important;
+color: dodgerblue !important;
+margin-top: -243px !important;
+
+position: relative !important;
+font-weight: normal !important;
+text-transform: uppercase !important;
+}
+.updatedp{
+  position: relative;
+left: 645;
+top: 176px;
+
+}
+.updatepro{
+  position: relative;
+left: 721;
+top: 336px;
+}
+.btnsub{
+  position: relative;
+left: 154px;
+top: 12px;
+}
+.deletetut{
+  position: relative;
+    top: 81px;
+    left: 247px;
+}
+.deletecourse{
+  position: relative;
+top: -402px;
+left: 244px;
+}
+.feed{
+  position: relative;
+top: 78px;
+}
+.feeddiv{
+  position: relative;
+top: 89px;
+}
+.vfeedback{
+  position: relative;
+left: 902;
+bottom: 21px;
+color: white;
+}
+.likefeed{
+  position: relative;
+    top: -87px;
+    right: -57px;
+    font-size: 19px;
+    color: dodgerblue;
+}
+.feedback{
+  position: relative;
+top: -29px;
+font-size: 12px;
+right: 1px;
+color: dodgerblue;
+text-transform: full-width;
+}
+.content{
+  top: -28px;
+position: relative;
+left: -15px;
+font-size: 23px;
+color: white;
+border: ridge;
+    
+border-radius: 8px;
+border-color: dodgerblue;
+}
+.datesend{
+  font-size: 9px;
+position: relative;
+left: 1115;
+top: -44px;
+color: white;
+}
 
 
 
@@ -918,7 +1004,7 @@ right: -33px;
               <li><a href="/accounts/logout"> Log-out</a></li>
           </ul>
       </li>
-     {%endif%} 
+     
       
         
         
@@ -926,7 +1012,16 @@ right: -33px;
       </div>
       
     </nav>
-
+    <div id="mySidenav" class="sidenav">
+          
+          
+      <a href="/administrator/createnews/"><i class="fa fa-home" aria-hidden="true"></i><p>HOME</p></a>
+      
+      <a href="/administrator/tutors/"><i class="fa fa-users" aria-hidden="true"></i><p>TUTORS</p></a>
+      <a href="/administrator/feedback/"><i class="fa fa-commenting" aria-hidden="true"></i><p>FEEDBACK</p></a>
+      
+    </div>
+    {%endif%} 
     
     
 

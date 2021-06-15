@@ -21,21 +21,23 @@
 <p>Full Name:</p>
 <input type="text" place holder="Full Name" name="sname" required>
 <p>Phone number:</p>
-<input type="text" place holder="Contact" name="snum" required>
+<input type="text" place holder="Contact" name="snum" id="myphone" required>
+<p class="alertp" style="display:none;">Enter a valid number</p>
 <p>Email</p>
 <input type="text" placeholder="Enter Email" name="email" required>
 <p>Birthday:</p>
-<input type="date" id="dob" name="dob">
-<div class="radiobtn">
+<input type="date" id="dob" name="dob" required>
+<div class="radiobtn" required>
 <p>Gender</p>
-<input type="radio"  name="gender" value="male">
-  <p>Male<p>
-  <input type="radio" name="gender" value="female">
-  <p>Female</p>
-  <input type="radio" name="gender" value="other">
-  <p>Others</p></div>
+<input type="radio"  name="gender" value="male" required style="color:#ffffff;">
+
+  <b style="color:#ffffff;">Male</b>
+  <input type="radio" name="gender" value="female" required>
+   <b style="color:#ffffff;">Female</b>
+  <input type="radio" name="gender" value="other" required>
+   <b style="color:#ffffff;">Others</b></div>
   <p>District</p>
-  <select name="dist" id="dist" onchange="LoadPLace(this.value)">
+  <select name="dist" id="dist" onchange="LoadPLace(this.value)" required>
   <option>--select--</option>
   {%for data in DistrictRecords%}
     <option value="{{  data.id }}">{{data.district_name}}</option>
@@ -55,12 +57,12 @@
 
 
 <p>Password</p>
-<input type="password" placeholder="Enter Password" name="password" required>
+<input type="password" placeholder="Enter Password" name="password" id="pass11" required>
 <p>Repeat Password</p>
-<input type="password" placeholder="Repeat Password" name="repeatPassword"
-required><br>
+<input type="password" placeholder="Repeat Password" name="repeatPassword" id="paswinp"required><br>
+<p class="alertp" style="display:none;">Password should be same</p>
 <p>Upload Profile Picture</p>
- <input type="file" id="filename" name="filename"><br>
+ <input type="file" id="filename" name="filename" required><br>
 <!--<p>
 <input type="checkbox"  checked="checked" name="remember" style="marginbottom: 15px"> Remember me
 </p>
@@ -69,7 +71,7 @@ style="color:dodgerblue">Terms & Privacy</a></p>-->
 <div>
 
 
-<button type="submit" class="signup" value="submit">Sign Up</button>
+<button  class="signup cre-button" value="submit">Sign Up</button>
 <button type="button" class="cancel" id="Cancel" >Cancel</button>
 <script type="text/javascript">
     document.getElementById("Cancel").onclick = function () {
@@ -78,6 +80,63 @@ style="color:dodgerblue">Terms & Privacy</a></p>-->
 </script>
 </div>
 </form>
+
  
     <!--{%endblock posts%}-->
+
+  <script>
+  $(document).ready(function () {
+    $('#myphone').on('input', function () {
+
+      if ($("#myphone").val().length <= 9) {
+        $('.alertp').show()
+        $('#myphone').css("border-color", "#d62b0c")
+
+      }
+      else {
+        $('.alertp').hide()
+        $('#myphone').css("border-color", "#0b7dd8")
+      }
+    })
+  })
+</script>
+<script>
+  $(document).ready(function () {
+    $('.cre-button').click(function (e) {
+      if ($("#myphone").val().length >= 7) {
+        $('.subformclass').submit();
+        $(".pre-lod").show();
+      }
+      else {
+        alert("Enter proper phone number");
+        e.preventDefault();
+      }
+    })
+  })
+</script>
+<script>
+  $(document).ready(function () {
+    $("#paswinp").on("input", function () {
+      var pass1 = $("#pass11").val();
+      var pass2 = $("#paswinp").val();
+      if (pass1 != pass2) {
+        $(".alertp").show();
+        $("#paswinp").css("border-color", "#d62b0c");
+      } else {
+        $(".alertp").hide();
+        $("#paswinp").css("border-color", "#0b7dd8");
+      }
+    });
+    $(".cre-button").click(function () {
+      var pass1 = $("#pass11").val();
+      var pass2 = $("#paswinp").val();
+      if (pass1 != pass2) {
+        alert("enter same password");
+      } else {
+        $(".subformclass").submit();
+        $(".pre-lod").show();
+      }
+    });
+  });
+</script>
     {% endblock content %}

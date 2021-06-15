@@ -13,5 +13,6 @@ path('course/delete/<int:id>/',views.deleteCourse,name="deletecourse"),
 path('tutors/delete/<int:id>/',views.deleteTutor,name="deletetutor"),
 path('videofeed/',views.VideoFeed,name="videofeed"),
 path('feedback/',views.feedback,name="feed"),
+path('0/',views.goback,name="goback")
 
 ]

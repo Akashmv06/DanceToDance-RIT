@@ -4,38 +4,46 @@
     
     {%for a in feed%}
     {%if a.vview%}
-    <p class="badge badge success">{{a.vfvideo.cv_title}}</p>
-    <p>course:<p>
-    <h1>{{a.vfvideo.cv_course.course_name}}</h1>
-    <h2>{{a.vfsend}}</h1>
-    <p>Your Feedback:</p>
-    <h1>{{a.vcontent}}</p>
+    <div class="feed">
+    <p class="badge badge success feedtitle">{{a.vfvideo.cv_title}}</p>
+    
+    <h1 class="feedback">{{a.vfvideo.cv_course.course_name}}</h1>
+    
+    
+    <h1 class="content"><p>{{a.vcontent}}</p></h1>
+    <h2 class="datesend">{{a.vfsend}}</h1>
+
         
     <form method="POST" action="{%url 'Tutor:likefeed' a.vfvideo.id%}" >
         {%csrf_token%}
         
-        <button type="submit" value="submit">Unlike</button>
+        <button type="submit" value="submit" class="btb btn-success subscription"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
+        </button>
     
 
-    </form> 
+    </form>
+</div> 
    
     {%else%}
     
+    <div class="feed">
+    <p class="badge badge success feedtitle">{{a.vfvideo.cv_title}}</p>
     
-    <p class="badge badge success">{{a.vfvideo.cv_title}}</p>
-    <p>course:<p>
-    <h1>{{a.vfvideo.cv_course.course_name}}</h1>
-    <h2>{{a.vfsend}}</h1>
-    <p>Your Feedback:</p>
-    <h1>{{a.vcontent}}</p>
+    <h1 class="feedback">{{a.vfvideo.cv_course.course_name}}</h1>
+    
+    
+    <h1 class="content"><p>{{a.vcontent}}</p></h1>
+    <h2 class="datesend">{{a.vfsend}}</h1>
         
     <form method="POST" action="{%url 'Tutor:likefeed' a.vfvideo.id%}" >
         {%csrf_token%}
         
-        <button type="submit" value="submit">Like</button>
+        <button type="submit" value="submit" class="btb btn-success subscription"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+        </button>
     
 
     </form> 
+</div>
     {%endif%}
     {%endfor%}
 

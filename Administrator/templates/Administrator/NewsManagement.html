@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Login{% endblock %}
     {% block content %}
-<a  href=""class="btn btn-danger" data-toggle="modal" data-target="#myadd"><i class="fa fa-video-camera" aria-hidden="true"></i>Add
+    <h1 class="pagetitle">News</h2>
+<a  href=""class="btn btn-danger uploadvid" data-toggle="modal" data-target="#myadd"><i class="fa fa-video-camera" aria-hidden="true"></i>Add
       </a> 
-<div class="row posters" style="margin-top:-5px;">
+<div class="row posters" style="margin-top:15px;">
         {%for d in news%}
         
         <div class="col-sm-3">
@@ -67,26 +68,35 @@
           </div>
           <div class="modal-body">
          <form method="POST" enctype="multipart/form-data">
-        {%csrf_token%}
+        {%csrf_token%}\
+        <label>News type</label><br>
+        <select name="ntype" id="" onchange="LoadPLace(this.value)">
+            <option>--select--</option>
+            {%for data in NewsTypeRecords%}
+                <option value="{{  data.id }}">{{data.newstype_name}}</option>
+            {% endfor %}
+            </select><br>
         
             <label><b>News Title</label><br>
                 <input type="text" class="" name="ntitle"><br>
             <label>News content</label>
                 <textarea name="ncontent" id="" cols="50" rows="4"></textarea><br>
-            <label>News type</label><br>
-                <select name="ntype" id="" onchange="LoadPLace(this.value)">
-                    <option>--select--</option>
-                    {%for data in NewsTypeRecords%}
-                        <option value="{{  data.id }}">{{data.newstype_name}}</option>
-                    {% endfor %}
+            <label><b>Location</b></label>
+                    <select name="nloc" id="nloc" onchange="LoadPLace(this.value)">
+                      {%for d in loc%}
+                      <option value="{{d.id}}">{{d.district_name}}</option>
+                      {%endfor%}
+                   
                 </select><br> 
+              <label><b>Date</b></label><br>
+              <input type="date" name="ndate"><br>
               
             <label>Upload Image</label><br> 
                 <input type="file" name="nposter" id="nposter"></b>
             
 
         
-        <button type="submit" class="" value="submit">Create News</button>
+        <button type="submit" class="" value="submit" class="btn btn-success subscription">Create News</button>
         
         
     

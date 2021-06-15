@@ -1,7 +1,7 @@
 from Student.models import videofeedback
 from django.http.response import HttpResponse, HttpResponseRedirect
 from Tutor.models import CourseVideo
-from Administrator.models import DanceCourses, Tutor
+from Administrator.models import DanceCourses, News, Tutor
 from django.shortcuts import get_object_or_404, render,redirect
 from MasterEntry.models import DanceCategory, District
 
@@ -14,7 +14,8 @@ def Tutorprofile(request):
     if request.session.has_key('tutor_id'):
         tid = request.session['tutor_id']
         tutors=Tutor.objects.filter(id=tid)
-        return render(request,"Tutor/Viewprofile.html",{'tutors':tutors})
+        dis=District.objects.all()
+        return render(request,"Tutor/Viewprofile.html",{'tutors':tutors,"dis":dis})
     else:
         return redirect("/accounts/login")
 
@@ -160,7 +161,10 @@ def ChangePassword(request):
     else:
         return redirect("/accounts/login")              
                 
-    
+def news(request):
+    allNewsData=News.objects.all()
+    return render(request,"Tutor/Home.html")
+  
 
             
     

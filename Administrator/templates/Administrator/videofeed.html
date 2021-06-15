@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
 {% block title %}Login{% endblock %}
     {% block content %}
-
+<h1 class="pagetitle">Video Feedback</h2>
+<form class="feed" action="{%url 'Administrator:feed'%}" method="POST">
+        {%csrf_token%}
+        <button type="submit" value="submit" class="btn btn-success subscription">General Feedback</button>
+    </form>
 
     {%for a in videofeed%}
+    <div class="feeddiv">
     <p class="badge badge success">{{a.vfvideo.cv_title}}</p>
     <p>course:<p>
     <h1>{{a.vfvideo.cv_course.course_name}}</h1>
     <h2>{{a.vfsend}}</h1>
     <p>Your Feedback:</p>
     <h1>{{a.vcontent}}</p>
+    </div>
     {%endfor%}
     
 

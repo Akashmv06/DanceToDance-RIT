@@ -16,5 +16,6 @@ path('updatephoto/<int:id>/',views.updateDp,name="updatedp"),
 path('updateprofile/<int:id>/',views.updateProfile,name="updateprofile"),
 path('videofeedback/<int:id>/',views.videofeed,name="videofeed"),
 path('likefeed/<int:id>',views.likefeed,name="likefeed"),
-path('changepassword/',views.ChangePassword,name="changepass")
+path('changepassword/',views.ChangePassword,name="changepass"),
+path('home/',views.news,name="news"),
 ]

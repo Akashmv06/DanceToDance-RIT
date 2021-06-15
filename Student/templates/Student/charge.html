@@ -2,6 +2,15 @@
 {% block title %}Login{% endblock %}
     {% block content %}
      
+<p>Your Payement is successful</p>
+<input type="button"  class="btn btn-success subscription"value="Go back to courses!" id="go" name="go">
+ <script type="text/javascript">
+    document.getElementById("go").onclick = function () {
+        
+        location.href = "/student/courses";
+    };
+    </script>
+</form>
 
 
     {% endblock content%}

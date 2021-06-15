@@ -15,17 +15,21 @@ def CreateNews(request):
     #return render(request,"Administrator/NewsManagement.html")
     NewsTypeRecords=NewstypeSelect()
     news=News.objects.all()
+    loc=District.objects.all()
     if request.method == 'POST':
         p=News()
         p.news_title= request.POST.get("ntitle")
         p.news_content= request.POST.get("ncontent")
         NewsTypeObj=NewsType.objects.get(id=request.POST.get("ntype"))
         p.news_newstype=NewsTypeObj
+        locobj=District.objects.get(id=request.POST.get("nloc"))
         p.news_poster=request.FILES.get("nposter")
+        p.news_loc=locobj
+        p.news_date=request.POST.get("ndate")
         p.save()
-        return redirect("/administrator/createnews/",{"news":news})
+        return redirect("/administrator/createnews/",{"news":news,"loc":loc})
     else:
-        return render(request,"Administrator/NewsManagement.html",{'NewsTypeRecords':NewsTypeRecords,"news":news})
+        return render(request,"Administrator/NewsManagement.html",{'NewsTypeRecords':NewsTypeRecords,"news":news,"loc":loc})
 
 def TutorAdd(request):
     if request.session.has_key('admin_id'):
@@ -98,7 +102,7 @@ def deleteCourse(request,id):
         if request.method=='POST':
             courses=DanceCourses.objects.filter(id=id)
             courses.delete()
-            return redirect('Administrator:courses',id=id)
+            return redirect('Administrator:goback')
 
 def deleteTutor(request,id):
     if request.session.has_key('admin_id'):
@@ -126,6 +130,9 @@ def feedback(request):
             return render(request,"Administrator/feedback.html",{"feed":feed})
     else:
         return redirect("/accounts/login/")
+    
+def goback(request):
+    return render(request,"Administrator/Back.html")   
 
 
 

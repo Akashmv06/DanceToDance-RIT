@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
     {% block content %}
-   
+    <a  href=""class="btn btn-danger updatedp " data-toggle="modal" data-target="#mydpupdate"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+    </a> 
+    <a  href=""class="btn btn-danger updatepro " data-toggle="modal" data-target="#myproupdate"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+    </a> 
     {% for stu in students %}
     <form action="" enctype="multipart/form-data">
     
@@ -25,5 +30,69 @@
 
     </div>
     </form>
+    {%endfor%}
+     {%for d in students%}
+    <!-- modal -->
+    <div class="modal fade-scale" id="mydpupdate" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Update Profile Picture</h4>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="{%url 'Student:updatedp' d.id%}" enctype="multipart/form-data">
+                {%csrf_token%}
+                <input type="file" name="dp" id="dp">
+                <button type="submit" value="submit" class="btn btn-success subscription btnsub">Update</button>
+                </form>
+          
+          
+          
+
+          
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <!-- modal end -->
+    {%endfor%}
+    {%for d in students%}
+    <!-- modal -->
+    <div class="modal fade-scale" id="myproupdate" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{d.news_title}}</h4>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="{%url 'Student:updateprofile' d.id%}" enctype="multipart/form-data">
+                {%csrf_token%}
+                <input type="text" name="tname" id="" placeholder="Name">
+                <input type="text" name="tcon" id="" placeholder="Phone number">
+                <input type="text" name="temail" id="" placeholder="E-mail">
+                <input type="date" name="tdob" id="" placeholder="tdob">
+                
+                <select name="tdis" id="tdis" onchange="LoadPlace(this.value)">
+                    {%for d in dis%}
+                    <option value="{{d.id}}">{{d.district_name}}</option>
+                    {%endfor%}
+                    </select>
+                    <button type="submit" value="submit" class="btn btn-success subscription btnsub">Update</button>
+                </form>
+          
+          
+
+          
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <!-- modal end -->
     {%endfor%}
     {% endblock content %}

@@ -108,7 +108,7 @@ def AddFavourites(request,slug):
                 
             
 
-            return redirect("Student:subvideos",slug=slug)
+            return redirect("Student:viewvideo",slug=slug)
 
         else:
             courses=DanceCourses.objects.filter(slug=slug).first()
@@ -269,6 +269,7 @@ def FeedBack(request):
         sid=request.session['student_id']
         stu=StudentModel.objects.get(id=sid)
         videofeed=videofeedback.objects.filter(vfstudent=stu)
+        ctype=ComplaintType.objects.all()
         if request.method=='POST':
             a=Feedback()
             a.feedstudent=stu
@@ -276,10 +277,10 @@ def FeedBack(request):
             a.feedtype=typeobj
             a.feedcontent=request.POST.get("fcontent")
             a.save()
-            context={"videofeed":videofeed}
+            context={"videofeed":videofeed,"ctype":ctype}
             return redirect("/student/feedback/",context)
         else:
-            context={"videofeed":videofeed}
+            context={"videofeed":videofeed,"ctype":ctype}
             return render(request,"Student/feedback.html",context)
     else:
         return redirect('/accounts/login/')

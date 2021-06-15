@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Courses{% endblock %}
     {% block content %}
+    <p class="vfeedback">If you have any queries about other than videos?</p>
+    <a  href=""class="btn btn-danger  uploadvid " data-toggle="modal" data-target="#myvfeed"><i class="fa fa-commenting" aria-hidden="true"></i>
+      </a> 
     {%for a in videofeed%}
     <div class="feed">
     <p class="badge badge-success feedtitle">{{a.vfvideo.cv_title}}</p>
@@ -9,8 +12,35 @@
     <h2 class="datesend">{{a.vfsend}}</h1>
     </div>
     {%if a.vview%}
-        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+        <i class="fa fa-thumbs-up likefeed" aria-hidden="true"></i>
     {%endif%}
+    
+
+      <!-- modal -->
+          <div class="modal fade-scale" id="myvfeed" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data">
+             {% csrf_token %}
+             {%for c in ctype%}
+             <input type="radio" value={{c.id}} name="ftype"><b>{{c.complainttype_name}}</b><br>
+             
+               {%endfor%} 
+            <p>Give feedback</p>
+            <textarea name="fcontent" id="fcontent" cols="50" rows="05"></textarea>
+            <button type="submit"value="submit" class="btn btn-success subscription btnsub" >OK</button>
+               </form> 
+                </div>
+              </div>            
+            </div>
+          </div>
+          <!-- modal end -->
 
     {%endfor%}
 

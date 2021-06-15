@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Login{% endblock %}
     {% block content %}
-
-    <a  href=""class="btn btn-danger" data-toggle="modal" data-target="#myadd">Add</a> 
+<h1 class="pagetitle">Courses</h2>
+    <a  href=""class="btn btn-danger uploadvid" data-toggle="modal" data-target="#myadd"><i class="fa fa-plus" aria-hidden="true"></i>Add</a> 
     <div class="row posters">
         {% for data in courses%}
         
@@ -29,7 +29,7 @@
         </button>
         <form action="{%url 'Administrator:deletecourse' data.id%}" method="POST">
             {%csrf_token%}
-            <button type="submit" value="submit">Delete</button>
+            <button type="submit" value="submit"class="btn btn-danger deletefav "><i class="fa fa-trash" aria-hidden="true"></i></button>
         </form>
         </a>
         </div>
@@ -46,6 +46,10 @@
         <!--<p>Level:<p><h1>{{data.course_level}}</h1> -->
         </div>   
         </button>
+        <form action="{%url 'Administrator:deletecourse' data.id%}" method="POST">
+            {%csrf_token%}
+            <button type="submit" value="submit"class="btn btn-danger deletefav deletecourse"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        </form>
         </a>
         </div>
         {%endif%}
@@ -91,12 +95,12 @@
             <input type="hidden"name="ispre" value="False" checked>
             <input type="checkbox" value="True" name="ispre"> 
               
-            <label>Upload Image</label><br> 
-                <input type="file" name="cphoto" id="cphoto"></b>
+            <p>Upload Image</p> 
+                <input type="file" name="cphoto" id="cphoto">
             
 
         
-        <button type="submit" class="" value="submit">Create News</button>
+        <button type="submit" class="" value="submit">Create</button>
         
         
     
