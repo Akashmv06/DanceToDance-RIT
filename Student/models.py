@@ -16,8 +16,8 @@ class Favourites(models.Model):
     def save(self,*args,**kwargs):
         self.slug=slugify(self.fvideo.cv_course)
         super(Favourites,self).save(*args,**kwargs)
-    def __str__(self):
-        return self.fvideo.cv_title
+    #def __str__(self):
+        #return self.fvideo.cv_title
 
 class videofeedback(models.Model):
     vfstudent=models.ForeignKey(StudentModel,on_delete=models.CASCADE,null=True,verbose_name="Student")     
@@ -37,3 +37,11 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f"{self.feedcontent} by {self.feedstudent.student_name}"
+    
+class RecentlyWatched(models.Model):
+    watchstu=models.ForeignKey(StudentModel, verbose_name="Student", on_delete=models.CASCADE,null=True)
+    watchvid=models.ForeignKey(CourseVideo,on_delete=models.CASCADE,null=True,verbose_name="Video:")
+    watchdatetime=models.DateTimeField(null=False,auto_now_add=False)
+    
+    def __str__(self):
+        return f"{self.watchstu.student_name} - {self.watchvid.cv_title} at {self.watchdatetime}"

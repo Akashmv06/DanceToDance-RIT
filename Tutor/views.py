@@ -115,11 +115,11 @@ def updateProfile(request,id):
 def videofeed(request,id):
     allVideos=CourseVideo.objects.filter(id=id).first()
     feed=videofeedback.objects.filter(vfvideo=allVideos)
-    f=get_object_or_404(videofeedback,vfvideo=allVideos)
+    
     
             
     
-    return render(request,"Tutor/videofeed.html",{"feed":feed,"allVideos":allVideos,"f":f})
+    return render(request,"Tutor/videofeed.html",{"feed":feed,"allVideos":allVideos})
              
 def likefeed(request,id):
     allVideos=CourseVideo.objects.filter(id=id).first()

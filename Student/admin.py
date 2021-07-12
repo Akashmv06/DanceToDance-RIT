@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Favourites)
 admin.site.register(videofeedback)
 admin.site.register(Feedback)
+admin.site.register(RecentlyWatched)

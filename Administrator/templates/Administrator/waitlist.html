@@ -4,19 +4,22 @@
     <h1 class="pagetitle">Course videos</h2>
     
        
-        
+        {%if videos%}
           <h1 class="section-header"></h1>
           <!--<div class="section-header-underline"></div>-->
           <div class="row posters videorow">
 
             
             
-          {%for data in allVideos%}
+          {%for data in videos%}
+          
           <div class="col-sm-3 colcol">
           
           <div class="video-gallery">
-
-           
+           <form action="{%url 'Administrator:approve' data.id%}" method="POST"style="margin-top: -49px;">
+              {%csrf_token%}
+              <button type="submit" class=" subscription videofeedbackbtn" value="submit">Approve</button> 
+              </form> 
             
             <div class="gallery-item">
               <img src="{{data.cv_thumbnail.url}}" />
@@ -33,7 +36,9 @@
             </div>
         {%endfor%}
         </div>
-    
+    {%else%}
+    <p class="empty">No videos to approve.</p>
+    {%endif%}
 
         
      <script>
@@ -48,7 +53,7 @@ function hideVideo(e) {
     $('video-gallery', this).get(0).pause(); 
 }
     </script>  
- {%for data in allVideos%}
+ {%for data in videos%}
       <!-- modal -->
       
       <div class="modal fade-scale" id="my{{forloop.counter}}modal" role="dialog">
@@ -59,41 +64,6 @@ function hideVideo(e) {
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title"></h4>
-              {%if data.cv_approve%}
-              <form action="{%url 'Administrator:viewvideo' data.cv_course.slug%}" method="POST"  name="" id="" enctype="multipart/form-data">
-                {%csrf_token%}
-                
-                  <select name="vid" id="vid" onchange="LoadPLace(this.value)"style="display:none;">
-                    
-                    <option value="{{data.id}}" selected >{{data.cv_title}}</option>
-                    
-                  </select>
-                
-                  
-                <button type="submit" class="favourites" name="go" id="go" value="submit">Cancel<i class="fa fa-gratipay" aria-hidden="true"></i></button>
-                
-                
-                
-            </form> 
-              {%else%}
-              <form action="{%url 'Administrator:viewvideo' data.cv_course.slug%}" method="POST"  name="" id="" enctype="multipart/form-data">
-                {%csrf_token%}
-                
-                  <select name="vid" id="vid" onchange="LoadPLace(this.value)"style="display:none;">
-                    
-                    <option value="{{data.id}}" selected >{{data.cv_title}}</option>
-                    
-                  </select>
-                
-                  
-                <button type="submit" class="favourites" name="go" id="go" value="submit">Approve<i class="fa fa-gratipay" aria-hidden="true"></i></button>
-                
-                
-                
-            </form> 
-            {%endif%}
-            
-
               
 
             

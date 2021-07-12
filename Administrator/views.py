@@ -95,8 +95,20 @@ def viewVideo(request,slug):
     courses=DanceCourses.objects.filter(slug=slug).first()
     allVideos=CourseVideo.objects.filter(cv_course_id=courses)
     context={"courses":courses,"allVideos":allVideos}
-    return render(request,"Administrator/Coursevideo.html",context)   
-
+    if request.method=="POST":
+        allVideos=CourseVideo.objects.get(id=request.POST.get('vid'))
+        if allVideos.cv_approve is False:
+            allVideos.cv_approve=True
+            allVideos.save()
+            return render(request,"Administrator/Coursevideo.html",context)   
+        else:
+            allVideos=CourseVideo.objects.get(id=request.POST.get('vid'))
+            allVideos.cv_approve=False
+            allVideos.save()
+            return render(request,"Administrator/Coursevideo.html",context)   
+    else:
+        return render(request,"Administrator/Coursevideo.html",context)  
+            
 def deleteCourse(request,id):
     if request.session.has_key('admin_id'):
         if request.method=='POST':
@@ -114,7 +126,7 @@ def deleteTutor(request,id):
             
 def VideoFeed(request):
     if request.session.has_key('admin_id'):
-        videofeed=videofeedback.objects.all()
+        videofeed=videofeedback.objects.all().order_by('-vfsend')
         if request.method=="POST":
             context={"videofeed":videofeed}
             return render(request,"Administrator/videofeed.html",context)
@@ -123,7 +135,7 @@ def VideoFeed(request):
 
 def feedback(request):
     if request.session.has_key('admin_id'):
-        feed=Feedback.objects.all()
+        feed=Feedback.objects.all().order_by('-feedsend')
         if request.method=='POST':
             return render(request,"Administrator/feedback.html",{"feed":feed})
         else:
@@ -133,6 +145,19 @@ def feedback(request):
     
 def goback(request):
     return render(request,"Administrator/Back.html")   
-
-
-
+def waitlist(request):
+    videos=CourseVideo.objects.filter(cv_approve=False)
+    return render(request,'Administrator/waitlist.html',{'videos':videos})
+def ApproveVideo(request,id):
+    if request.session.has_key('admin_id'):
+        
+        videos=CourseVideo.objects.filter(cv_approve=False)
+        if request.method=="POST":
+            allvideos=CourseVideo.objects.get(id=id)
+            allvideos.cv_approve=True
+            allvideos.save()
+            context={'videos':videos}
+            return redirect('/administrator/waitlist/',context)
+        
+    else:
+        return redirect("/accounts/login/")

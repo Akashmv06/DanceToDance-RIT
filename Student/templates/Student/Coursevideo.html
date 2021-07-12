@@ -12,6 +12,7 @@
             
             
           {%for data in allVideos%}
+          {%if data.cv_approve%}
           <div class="col-sm-3 colcol">
           
           <div class="video-gallery">
@@ -24,12 +25,13 @@
                   <h2>{{data.cv_title}}</h2>
                   
                 </div>
-                <a class="vimeo-popup myvideos" href ="" data-toggle="modal" data-target="#my{{forloop.counter}}modal"></a>
+                <a class="vimeo-popup myvideos" href="" data-toggle="modal" data-target="#my{{forloop.counter}}modal"></a>
               </div>
             </div>
             
             </div>
             </div>
+            {%endif%}
         {%endfor%}
         </div>
     
@@ -48,7 +50,7 @@ function hideVideo(e) {
 }
     </script>  
  {%for data in allVideos%}
-    {%if data.is_fav%}
+    
       <!-- modal -->
       
       <div class="modal fade-scale" id="my{{forloop.counter}}modal" role="dialog">
@@ -60,7 +62,8 @@ function hideVideo(e) {
             <div class="modal-header noheader">
               <h4 class="modal-title"></h4>
           
-              <form action="{%url 'Student:favourites' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data"style="display:none;>
+          <!-- <a class="favourites" href="{%url 'Student:favourites' data.id%}">fav<i class="fa fa-gratipay" aria-hidden="true"></i></a> -->
+              <form class="event" action="{%url 'Student:favourites' data.id%}" method="POST"  name="" id="">
                 {%csrf_token%}
                 
                   <select name="vi" id="vi" onchange="LoadPLace(this.value)"style="display:none;">
@@ -70,15 +73,15 @@ function hideVideo(e) {
                   </select>
                 
                   
-                <button type="submit" class="favourites" name="go" id="go" value="submit"><i class="fa fa-gratipay" aria-hidden="true"></i></button>
+                <button  type="submit" class="favourites " name="submit" id="submit" value="submit"><i class="fa fa-gratipay" aria-hidden="true"></i></button>
                 
                 
                 
-            </form>
+            </form> 
             
             
 
-            <form action="{%url 'Student:videofeed' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data">
+            <form class="event2" action="{%url 'Student:videofeed' data.id%}" method="POST"  name="" id="">
               {%csrf_token%}
               
                 <select name="vi" id="vi" onchange="LoadPLace(this.value)"style="display:none;">
@@ -88,8 +91,7 @@ function hideVideo(e) {
                 </select>
                 <input type="text" class="thoughts" name="content" placeholder="Thoughts on this.">
               <button type="submit" class="commentbtn" name="go" id="go" value="submit" >OK</button>
-              
-
+              </form>
             
             </div>
             <div class="modal-body">
@@ -107,66 +109,7 @@ function hideVideo(e) {
         </div>
       </div>
       <!-- modal end --> 
-      {%else%}  
-         <!-- modal -->
       
-         <div class="modal fade-scale" id="my{{forloop.counter}}modal" role="dialog">
-          <div class="modal-dialog">
-          
-            <!-- Modal content-->
-            
-            <div class="modal-content videoframe">
-              <div class="modal-header noheader">
-                <h4 class="modal-title"></h4>
-            
-                <form action="{%url 'Student:favourites' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data">
-                  {%csrf_token%}
-                  
-                    <select name="vi" id="vi" onchange="LoadPLace(this.value)"style="display: none;">
-                      
-                      <option value="{{data.id}}" selected >{{data.cv_title}}</option>
-                      
-                    </select>
-                  
-                    
-                  <button type="submit" class="favourites" name="go" id="go" value="submit"><i class="fa fa-gratipay" aria-hidden="true"></i></button>
-                  
-                  
-                  
-              </form>
-              
-              
-  
-              <form action="{%url 'Student:videofeed' data.cv_course.slug%}" method="POST"  name="myForm" id="myForm" enctype="multipart/form-data">
-                {%csrf_token%}
-                
-                  <select name="vi" id="vi" onchange="LoadPLace(this.value)"style="display:none;">
-                    
-                    <option value="{{data.id}}" selected >{{data.cv_title}}</option>
-                    
-                  </select>
-                  <input type="text" class="thoughts" name="content" placeholder="Thoughts on this.">
-                <button type="submit" class="commentbtn" name="go" id="go" value="submit" >OK</button>
-                
-  
-              
-              </div>
-              <div class="modal-body">
-              <video class="videomodal" controls="controls"  ><source src="{{data.cv_video.url}}" type="video/mp4"/></video>  
-              <h2></h2>
-              <h2></h2>
-              <h2></h2>
-              
-              
-  
-              
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        <!-- modal end --> 
-        {%endif%}               
    {%endfor%}   
         
    <script>
@@ -175,34 +118,33 @@ function hideVideo(e) {
       $v[0].pause();  // use [0] because jQuery returns a list
     });
   </script>
-  {%for a in allVideos%}
-<script  type="text/javascript">$('#myForm').submit(function(e){
-
-  $.ajax({
-      url: '/student/courses/videos/{{a.cv_course.slug}}/',
-      type: 'POST',
-      
-        data:{
-          
-          fvideo:$("#vi").val(),
-          fstudent:$().val(),
-
-          
-          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-        },
-
-
-      success:function(){
-         alert('saved'); // Whatever you want to do after the form is successfully submitted
-      }
-  });
-});</script>
-{%endfor%}
+  
 {%if Add%}
 <script>
     alert("Video added to favourites")
 </script>              
  {%endif%}    
+<script>
+  $('.event').submit(function(e){
+    e.preventDefault();
+    
+    url = $(this).attr('action')
+    data = $(this).serialize(); 
+    $.post(url, data, function(response){
+      alert('Added to Favourites.');
+    })
+})
+</script>
+<script>
+  $('.event2').submit(function(e){
+    e.preventDefault();
+    url = $(this).attr('action')
+    data = $(this).serialize(); 
+    $.post(url, data, function(response){
+      alert('Thoughts sent.');
+    })
+})
+</script>
 
 
    

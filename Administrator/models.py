@@ -19,10 +19,10 @@ class Tutor(models.Model):
     tutor_name=models.CharField("Name:",max_length=20,null=False)
     tutor_contact=models.CharField("Contact:",max_length=11,null=False)
     tutor_email=models.EmailField("Email:",unique=True,null=False,help_text="Enter Valid Email")
-    tutor_gender=models.CharField("Gender:",max_length=5,choices=Gender,null=False)
+    tutor_gender=models.CharField("Gender:",max_length=20,choices=Gender,null=False)
     tutor_photo=models.ImageField("Tutor Photo:",upload_to="TutorPhoto",null=False)
     tutor_dob=models.DateField("Date of Birth:",null=False)
-    tutor_isactive=models.CharField("Is Active:",max_length=5,choices=isActive,null=False,help_text="If Value is 1 Tutor is Active and Not Active if 0")
+    tutor_isactive=models.CharField("Is Active:",max_length=5,choices=isActive,null=True,help_text="If Value is 1 Tutor is Active and Not Active if 0")
     tutor_username=models.CharField("User name:",max_length=15,unique=True,null=False)
     tutor_password=models.CharField("Password:",max_length=15,unique=True,null=False)
     
@@ -42,7 +42,7 @@ class DanceCourses(models.Model):
     course_photo=models.ImageField(upload_to="CoursePhoto",null=False)
     course_description=models.TextField("Description")
     course_level=models.ForeignKey(DanceLevel,on_delete=models.SET_NULL,verbose_name="Level",null=True)
-    course_subs=models.ForeignKey(SubscriptionType,on_delete=models.CASCADE,verbose_name="Subscription type",null=True)
+    
     slug= models.SlugField(blank=True)
     is_premium=models.BooleanField(default=False)
     def save(self,*args,**kwargs):
