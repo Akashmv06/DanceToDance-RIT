@@ -15,6 +15,6 @@ path('videofeed/',views.VideoFeed,name="videofeed"),
 path('feedback/',views.feedback,name="feed"),
 path('0/',views.goback,name="goback"),
 path('approve-video/<int:id>',views.ApproveVideo,name='approve'),
-path('waitlist/',views.waitlist,name='waitlist')
-
+path('waitlist/',views.waitlist,name='waitlist'),
+# path('feedcateg/<int:id>',views.feedcateg,name="fcateg")
 ]

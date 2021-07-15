@@ -4,9 +4,10 @@
     <p class="vfeedback">If you have any queries about other than videos?</p>
     <a  href=""class="btn btn-danger  uploadvid " data-toggle="modal" data-target="#myvfeed"><i class="fa fa-commenting" aria-hidden="true"></i>
       </a> 
+    {%if videofeed%}
     {%for a in videofeed%}
     <div class="feed">
-    <p class="badge badge-success feedtitle">{{a.vfvideo.cv_title}}</p>
+    <p class="badge badge-success feedtitle">{{a.vfvideo.cv_title}}
     <h1 class="feedback">{{a.vfvideo.cv_course.course_name}}</h1>
     <h1 class="content"><p>{{a.vcontent}}</p></h1>
     <h2 class="datesend">{{a.vfsend}}</h1>
@@ -15,6 +16,9 @@
         <i class="fa fa-thumbs-up likefeed" aria-hidden="true"></i>
     {%endif%}
     {%endfor%}
+    {%else%}
+        <p class="empty"style="left: 40px !important;">You didn't gave any feedback for videos yet.</p>
+        {%endif%}
 
       <!-- modal -->
           <div class="modal fade-scale" id="myvfeed" role="dialog">
@@ -23,18 +27,20 @@
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title"></h4>
+                  <h4 class="modal-title">Feedback</h4>
                 </div>
                 <div class="modal-body">
                 <form method="POST" enctype="multipart/form-data">
              {% csrf_token %}
+             <p class="pstyle">Choose</p>
              {%for c in ctype%}
-             <input type="radio" value={{c.id}} name="ftype"><b>{{c.complainttype_name}}</b><br>
+             
+             <input type="radio" value={{c.id}} name="ftype"  required><b>{{c.complainttype_name}}</b><br>
              
                {%endfor%} 
-            <p>Give feedback</p>
-            <textarea name="fcontent" id="fcontent" cols="50" rows="05"></textarea>
-            <button type="submit"value="submit" class="btn btn-success subscription btnsub" >OK</button>
+            <p class="pstyle">Give feedback</p>
+            <textarea name="fcontent" id="fcontent" cols="50" rows="05" required></textarea>
+            <button type="submit"value="submit" class="btn btn-success subscription btnsub">OK</button>
                </form> 
                 </div>
               </div>            

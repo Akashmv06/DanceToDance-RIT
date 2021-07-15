@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Video Feed{% endblock %}
     {% block content %}
-    
+    <h1 class="pagetitle">Video feedback</h2>
     {%for a in feed%}
     {%if a.vview%}
     <div class="feed">
     <p class="badge badge success feedtitle">{{a.vfvideo.cv_title}}</p>
-    
+    <p class="badge badge-success feedtitle">{{a.vfstudent.student_name}}</p>
+    <p class="badge badge-success feedtitle">{{a.vfstudent.student_email}}</p>
     <h1 class="feedback">{{a.vfvideo.cv_course.course_name}}</h1>
     
     
     <h1 class="content"><p>{{a.vcontent}}</p></h1>
     <h2 class="datesend">{{a.vfsend}}</h1>
 
-        
+      
     <form method="POST" action="{%url 'Tutor:likefeed' a.vfvideo.id%}" >
         {%csrf_token%}
-        
-        <button type="submit" value="submit" class="btb btn-success subscription"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
+        <input type="hidden" name="lid" value="{{a.id}}">
+        <button type="submit" value="submit" class="btb btn-success subscription like"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
         </button>
     
 
@@ -28,17 +29,18 @@
     
     <div class="feed">
     <p class="badge badge success feedtitle">{{a.vfvideo.cv_title}}</p>
-    
+    <p class="badge badge-success feedtitle">{{a.vfstudent.student_name}}</p>
+    <p class="badge badge-success feedtitle">{{a.vfstudent.student_email}}</p>
     <h1 class="feedback">{{a.vfvideo.cv_course.course_name}}</h1>
     
     
     <h1 class="content"><p>{{a.vcontent}}</p></h1>
-    <h2 class="datesend">{{a.vfsend}}</h1>
+    <h2 class="datesend">{{a.vfsend}}</h2>
         
     <form method="POST" action="{%url 'Tutor:likefeed' a.vfvideo.id%}" >
         {%csrf_token%}
-        
-        <button type="submit" value="submit" class="btb btn-success subscription"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+        <input type="hidden" name="lid" value="{{a.id}}">
+        <button type="submit" value="submit" class="btb btn-success subscription like"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
         </button>
     
 

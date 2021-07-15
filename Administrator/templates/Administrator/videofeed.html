@@ -6,18 +6,22 @@
         {%csrf_token%}
         <button type="submit" value="submit" class="btn btn-success subscription">General Feedback</button>
     </form>
-
+    {%if videofeed%}
     {%for a in videofeed%}
+    
     <div class="feeddiv">
     <p class="badge badge success">{{a.vfvideo.cv_title}}</p>
-    <p>course:<p>
-    <h1>{{a.vfvideo.cv_course.course_name}}</h1>
-    <h2>{{a.vfsend}}</h1>
-    <p>Your Feedback:</p>
-    <h1>{{a.vcontent}}</p>
+    <p class="badge badge success">{{a.vfstudent.student_name}}</p>
+    <p class="badge badge success">{{a.vfstudent.student_email}}</p>
+    <h1 class="feedctype">{{a.vfvideo.cv_course.course_name}}</h1>
+    <h1  class="content">{{a.vcontent}}</p>
+    <h2 class="datesend">{{a.vfsend}}</h2>
     </div>
-    {%endfor%}
     
+    {%endfor%}
+    {%else%}
+        <p class="empty">No feedbacks</p>
+        {%endif%}
 
 
     {% endblock content%}

@@ -1,6 +1,6 @@
 from Accounts.models import adminmodel
 from django.shortcuts import redirect, render
-from MasterEntry.models import DanceCategory, DanceLevel, Designation, District, NewsType
+from MasterEntry.models import ComplaintType, DanceCategory, DanceLevel, Designation, District, NewsType
 from .models import DanceCourses, News, Tutor
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -136,10 +136,11 @@ def VideoFeed(request):
 def feedback(request):
     if request.session.has_key('admin_id'):
         feed=Feedback.objects.all().order_by('-feedsend')
+        ctype=ComplaintType.objects.all()
         if request.method=='POST':
-            return render(request,"Administrator/feedback.html",{"feed":feed})
+            return render(request,"Administrator/feedback.html",{"feed":feed,"ctype":ctype})
         else:
-            return render(request,"Administrator/feedback.html",{"feed":feed})
+            return render(request,"Administrator/feedback.html",{"feed":feed,"ctype":ctype})
     else:
         return redirect("/accounts/login/")
     
@@ -161,3 +162,6 @@ def ApproveVideo(request,id):
         
     else:
         return redirect("/accounts/login/")
+def feedcateg(request,id):
+    categ=Feedback.objects.filter(feedtype=id)
+    return redirect('Administrator:feed',{'categ':categ})

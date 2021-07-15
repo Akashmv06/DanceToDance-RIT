@@ -1,3 +1,4 @@
+from django.http import response
 from Student.models import videofeedback
 from django.http.response import HttpResponse, HttpResponseRedirect
 from Tutor.models import CourseVideo
@@ -122,12 +123,11 @@ def videofeed(request,id):
     return render(request,"Tutor/videofeed.html",{"feed":feed,"allVideos":allVideos})
              
 def likefeed(request,id):
-    allVideos=CourseVideo.objects.filter(id=id).first()
+    
     
     if request.method=='POST':
-        feed=videofeedback.objects.get(vfvideo_id=allVideos)
+        feed=videofeedback.objects.get(id=request.POST.get("lid"))
         if feed.vview==False:
-            
             feed.vview=True
             feed.save()
             context={"feed":feed}

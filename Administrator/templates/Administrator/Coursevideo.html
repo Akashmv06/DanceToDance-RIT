@@ -10,7 +10,7 @@
           <div class="row posters videorow">
 
             
-            
+           {%if allVideos%} 
           {%for data in allVideos%}
           <div class="col-sm-3 colcol">
           
@@ -32,6 +32,9 @@
             </div>
             </div>
         {%endfor%}
+        {%else%}
+        <p class="empty"style="font-size: 67px !important;">No videos are uploaded by tutor yet.</p>
+        {%endif%}
         </div>
     
 
@@ -56,11 +59,11 @@ function hideVideo(e) {
         
           <!-- Modal content-->
           
-          <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-content videoframe">
+            <div class="modal-header noheader">
               <h4 class="modal-title"></h4>
               {%if data.cv_approve%}
-              <form action="{%url 'Administrator:viewvideo' data.cv_course.slug%}" method="POST"  name="" id="" enctype="multipart/form-data">
+              <form action="{%url 'Administrator:viewvideo' data.cv_course.slug%}" method="POST" class="cancelappr" name="" id="" enctype="multipart/form-data">
                 {%csrf_token%}
                 
                   <select name="vid" id="vid" onchange="LoadPLace(this.value)"style="display:none;">
@@ -70,13 +73,13 @@ function hideVideo(e) {
                   </select>
                 
                   
-                <button type="submit" class="favourites" name="go" id="go" value="submit">Cancel<i class="fa fa-gratipay" aria-hidden="true"></i></button>
+                <button type="submit" class="Approval" name="go" id="go" value="submit">Cancel</button>
                 
                 
                 
             </form> 
               {%else%}
-              <form action="{%url 'Administrator:viewvideo' data.cv_course.slug%}" method="POST"  name="" id="" enctype="multipart/form-data">
+              <form action="{%url 'Administrator:viewvideo' data.cv_course.slug%}" method="POST" class="appr" name="" id="" enctype="multipart/form-data">
                 {%csrf_token%}
                 
                   <select name="vid" id="vid" onchange="LoadPLace(this.value)"style="display:none;">
@@ -86,11 +89,12 @@ function hideVideo(e) {
                   </select>
                 
                   
-                <button type="submit" class="favourites" name="go" id="go" value="submit">Approve<i class="fa fa-gratipay" aria-hidden="true"></i></button>
+                <button type="submit" class="approval" name="go" id="go" value="submit">Approve</button>
                 
                 
                 
-            </form> 
+            </form>
+
             {%endif%}
             
 
@@ -99,7 +103,7 @@ function hideVideo(e) {
             
             </div>
             <div class="modal-body">
-            <video class="" controls="controls"  ><source src="{{data.cv_video.url}}" type="video/mp4"/></video>  
+            <video class="videomodal" controls="controls"  ><source src="{{data.cv_video.url}}" type="video/mp4"/></video>  
             <h2></h2>
             <h2></h2>
             <h2></h2>
@@ -122,7 +126,26 @@ function hideVideo(e) {
     });
   </script>
  
-
+{% comment %} <script>
+  $('.appr').submit(function(e){
+    e.preventDefault();
+    url = $(this).attr('action')
+    data = $(this).serialize(); 
+    $.post(url, data, function(response){
+      alert('Thoughts sent.');
+    })
+})
+</script>
+<script>
+  $('.cancelappr').submit(function(e){
+    e.preventDefault();
+    url = $(this).attr('action')
+    data = $(this).serialize(); 
+    $.post(url, data, function(response){
+      alert('Thoughts sent.');
+    })
+})
+</script> {% endcomment %}
  
 
    

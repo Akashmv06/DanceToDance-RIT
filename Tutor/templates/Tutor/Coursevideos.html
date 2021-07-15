@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Coursevideos{% endblock %}
     {% block content %}
-
+    <h1 class="pagetitle">Course videos</h2>
     <a  href=""class="btn btn-danger uploadvid" data-toggle="modal" data-target="#mymodal"><i class="fa fa-video-camera" aria-hidden="true"></i>Upload
       </a> 
     
@@ -13,16 +13,24 @@
           <!--<div class="section-header-underline"></div>-->
           <div class="row posters videorow">
          {%for data in allVideos%}
-          <div class="col-sm-3 colcol">
+         
+            
+         <div class="col-sm-3 colcol">
            
           <div class="video-gallery">
+            {%if data.cv_approve%}
+            
             <form action="{%url 'Tutor:videofeed' data.id%}" method="POST"style="margin-top: -49px;">
               {%csrf_token%}
               <button type="submit" class=" subscription videofeedbackbtn" value="submit">Video-Feedback</button> 
               </form>
             
             <button class="btn btn-danger deletefav" data-toggle="modal" data-target="#mydelete"><i class="fa fa-trash" aria-hidden="true"></i></button>
-        
+            </form>
+            {%else%}
+            <p class="wfa">Waiting for approval.</p>
+            
+            {%endif%}
             <div class="gallery-item">
               <img src="{{data.cv_thumbnail.url}}" />
               <div class="gallery-item-caption">
@@ -44,19 +52,19 @@
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title"></h4>
+                  <h4 class="modal-title">Upload video  </h4>
                 </div>
                 <div class="modal-body">
                 <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %} 
-                <p>Title<p>
+                <p class="pstyle">Title<p>
                 <input type="text" name="vtitle" required>
-                <p>Thumbnail</p>
+                <p class="pstyle">Thumbnail</p>
                 <input type="file" name="vthumb" required accept="image/*">
-                <p>Video</p>
+                <p class="pstyle">Video</p>
                 <input type="file" name="vvideo" required accept="video/*" >
                 
-                <p>Course</p>
+                <p class="pstyle">Course</p>
                 <select name="vcourse" id="vcourse" onclick="LoadPLace(this.value)"style="display:none;">
                 {%if courses%}
                     <option value="{{courses.id}}" selected>{{courses.id}}</option>

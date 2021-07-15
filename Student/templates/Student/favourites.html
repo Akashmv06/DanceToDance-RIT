@@ -10,7 +10,7 @@
           <div class="row posters videorow">
 
             
-            
+          {%if allVideos%}
           {%for data in allVideos%}
           <div class="col-sm-3 colcol">
           
@@ -35,6 +35,9 @@
             </div>
             </div>
         {%endfor%}
+        {%else%}
+        <p class="empty">Your favourite list is empty</p>
+        {%endif%}
         </div>
     
 

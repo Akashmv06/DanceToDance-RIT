@@ -1,3 +1,4 @@
+from Administrator.views import feedback
 from django import http
 from django.http.response import HttpResponseRedirect
 import Student
@@ -304,18 +305,18 @@ def updateprofile(request,id):
             students.student_contact=request.POST.get("scon")
             students.student_email=request.POST.get("semail")
             students.student_dob=request.POST.get("sdob")
-            disobj=District.objects.get(id=request.POST.get("sdis"))
-            students.student_district=disobj
-            students.student_username=request.POST.get("suser")
+           
+
             students.save()
             return redirect("/student/profile/",{"dis":dis})
     else:
         return redirect("/accounts/login/")
     
-def recentlywatched(request):
-    if request.session.has_key('student_id'):
-        sid=request.session['student_id']
-        stu=StudentModel.objects.get(id=sid)
-        vid=RecentlyWatched.objects.filter(watchstu=stu)
+# def recentlywatched(request):
+#     if request.session.has_key('student_id'):
+#         sid=request.session['student_id']
+#         stu=StudentModel.objects.get(id=sid)
+#         vid=RecentlyWatched.objects.filter(watchstu=stu)
         
-        return HttpResponse(vid)
+#         return HttpResponse(vid)
+

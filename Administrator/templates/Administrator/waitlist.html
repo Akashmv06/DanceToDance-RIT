@@ -18,7 +18,7 @@
           <div class="video-gallery">
            <form action="{%url 'Administrator:approve' data.id%}" method="POST"style="margin-top: -49px;">
               {%csrf_token%}
-              <button type="submit" class=" subscription videofeedbackbtn" value="submit">Approve</button> 
+              <button type="submit" class=" subscription approvebtn" value="submit">Approve</button> 
               </form> 
             
             <div class="gallery-item">
@@ -61,15 +61,15 @@ function hideVideo(e) {
         
           <!-- Modal content-->
           
-          <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-content videoframe" >
+            <div class="modal-header noheader">
               <h4 class="modal-title"></h4>
               
 
             
             </div>
             <div class="modal-body">
-            <video class="" controls="controls"  ><source src="{{data.cv_video.url}}" type="video/mp4"/></video>  
+            <video class="videomodal" controls="controls"  ><source src="{{data.cv_video.url}}" type="video/mp4"/></video>  
             <h2></h2>
             <h2></h2>
             <h2></h2>

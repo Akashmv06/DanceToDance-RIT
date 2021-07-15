@@ -13,7 +13,7 @@
    {%endfor%}
    {%block posts%}-->
    
-    
+    <p class="logintitle">GROOVES N MOVES</p>
    <form method="POST"enctype="multipart/form-data" >
 {% csrf_token %} 
 <div class="formContainer">
@@ -60,7 +60,7 @@
 <input type="password" placeholder="Enter Password" name="password" id="pass11" required>
 <p>Repeat Password</p>
 <input type="password" placeholder="Repeat Password" name="repeatPassword" id="paswinp"required><br>
-<p class="alertp" style="display:none;">Password should be same</p>
+<p class="alertp2" style="display:none;">Password should be same</p>
 <p>Upload Profile Picture</p>
  <input type="file" id="filename" name="filename" required><br>
 <!--<p>
@@ -88,7 +88,7 @@ style="color:dodgerblue">Terms & Privacy</a></p>-->
   $(document).ready(function () {
     $('#myphone').on('input', function () {
 
-      if ($("#myphone").val().length <= 9) {
+      if ($("#myphone").val().length <= 9)  {
         $('.alertp').show()
         $('#myphone').css("border-color", "#d62b0c")
 
@@ -120,10 +120,10 @@ style="color:dodgerblue">Terms & Privacy</a></p>-->
       var pass1 = $("#pass11").val();
       var pass2 = $("#paswinp").val();
       if (pass1 != pass2) {
-        $(".alertp").show();
+        $(".alertp2").show();
         $("#paswinp").css("border-color", "#d62b0c");
       } else {
-        $(".alertp").hide();
+        $(".alertp2").hide();
         $("#paswinp").css("border-color", "#0b7dd8");
       }
     });

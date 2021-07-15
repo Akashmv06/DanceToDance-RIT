@@ -64,12 +64,12 @@
         <!-- Modal content-->
          <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title"></h4>
+            <h4 class="modal-title">News upload</h4>
           </div>
           <div class="modal-body">
          <form method="POST" enctype="multipart/form-data">
         {%csrf_token%}\
-        <label>News type</label><br>
+        <p class="pstyle">News type</p>
         <select name="ntype" id="" onchange="LoadPLace(this.value)">
             <option>--select--</option>
             {%for data in NewsTypeRecords%}
@@ -77,26 +77,26 @@
             {% endfor %}
             </select><br>
         
-            <label><b>News Title</label><br>
-                <input type="text" class="" name="ntitle"><br>
-            <label>News content</label>
-                <textarea name="ncontent" id="" cols="50" rows="4"></textarea><br>
-            <label><b>Location</b></label>
-                    <select name="nloc" id="nloc" onchange="LoadPLace(this.value)">
+            <p class="pstyle">News Title</p>
+                <input type="text" class="" name="ntitle" required><br>
+            <p class="pstyle">News content</p>
+                <textarea name="ncontent" id="" cols="50" rows="4" required></textarea><br>
+            <p class="pstyle"><b>Location</p>
+                    <select name="nloc" id="nloc" onchange="LoadPLace(this.value)" required>
                       {%for d in loc%}
                       <option value="{{d.id}}">{{d.district_name}}</option>
                       {%endfor%}
                    
                 </select><br> 
-              <label><b>Date</b></label><br>
-              <input type="date" name="ndate"><br>
+              <p class="pstyle">Date</p>
+              <input type="date" name="ndate" required><br>
               
-            <label>Upload Image</label><br> 
-                <input type="file" name="nposter" id="nposter"></b>
+            <p class="pstyle">Upload Image</p> 
+                <input type="file" name="nposter" id="nposter" accept="image/*" required><br>
             
 
         
-        <button type="submit" class="" value="submit" class="btn btn-success subscription">Create News</button>
+        <button type="submit" class="btn btn-success subscription" value="submit" style="width: 478px;">Create News</button>
         
         
     

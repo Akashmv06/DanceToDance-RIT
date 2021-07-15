@@ -2,19 +2,53 @@
 {% block title %}Login{% endblock %}
     {% block content %}
     <h1 class="pagetitle">Feedback</h2>
-    <form  class="feed"action="{%url 'Administrator:videofeed'%}" method="POST">
+     <form  class="feed"action="{%url 'Administrator:videofeed'%}" method="POST">
         {%csrf_token%}
         <button type="submit" value="submit" class="btn btn-success subscription">Video Feedback</button>
     </form>
-
+    {%if feed%}
     {%for a in feed%}
+    
     <div class="feeddiv">
     <p class="badge badge success">{{a.feedstudent.student_name}}</p>
-    <p>{{a.feedstudent.student_email}}<p>
-    <h1>{{a.feedcontent}}</h1>
-    <h2>{{a.feedsend}}</h1>
+    <p class=" badge badge success">{{a.feedstudent.student_email}}<p>
+    <p class="feedctype">{{a.feedtype.complainttype_name}}
+    <h1 class="content">{{a.feedcontent}}</h1>
+    <h2 class="datesend">{{a.feedsend}}</h2>
     </div>
-    {%endfor%}
     
-
+    {%endfor%}
+    {%else%}
+        <p class="empty">No feedbacks</p>
+    {%endif%} 
+ {% comment %} <div class="row posters">
+        {% for data in ctype%}
+        
+            
+        <div class="col-sm-3">
+            <button type="submit" class="cardclass" id="cardclass" >
+             
+            
+            <div class="cardposter" >
+               
+                
+                    
+            <a class="cards"  href="{%url 'Administrator:fcateg' data.id%}" >
+               
+            
+                <img  class="categ"src="https://media.qechic.com/c/product/papel-pintado-basico-blanco-matiz-gris-250x250.jpg" />
+        <div class="pclass ">
+            <!--<p>Category:</p><h1>{{data.course_dancecategory}}</h1>
+        <p>Trainer:<p><h1>{{data.course_tutor}}</h1>-->
+        <h1 class="categoryp">{{data.complainttype_name}}</h1>
+        <!--<p>Level:<p><h1>{{data.course_level}}</h1> -->
+        </div>   
+        </button>
+        </a>
+        </div>
+       
+        {%endfor%}
+        </div>
+        </div> {% endcomment %}
+ 
     {% endblock content%}

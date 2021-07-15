@@ -38,7 +38,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">{{d.tutor_name}}</h4>
-            <a href="{%url 'Administrator:courses' d.id%}" class="btn btn-success subscription">Courses</a>
+            <a href="{%url 'Administrator:courses' d.id%}" class="btn btn-success subscription" style="width: 478px;">Courses</a>
           </div>
           <div class="modal-body">
           <img src="{{d.tutor_photo.url}}" />
@@ -71,56 +71,59 @@
              <form method="POST"enctype="multipart/form-data" >
 {% csrf_token %} 
 
-<h1>Sign Up Form</h1>
-<p>Full Name:</p>
+
+<p class="pstyle">Full Name:</p>
 <input type="text" place holder="Full Name" name="tname" required>
-<p>Phone number:</p>
-<input type="text" place holder="Contact" name="tnum" required>
-<p>Email</p>
+<p class="pstyle">Phone number:</p>
+<input type="text" place holder="Contact" name="tnum" id="myphone" required >
+<p class="alertp" style="display:none;">Enter a valid number</p>
+<p class="pstyle">Email</p>
 <input type="text" placeholder="Enter Email" name="temail" required>
-<p>Birthday:</p>
-<input type="date" id="tdob" name="tdob">
-<div class="radiobtn">
-<p>Gender</p>
+<p class="pstyle">Birthday:</p>
+<input type="date" id="tdob" name="tdob" required>
+
+<p class="pstyle">Gender</p>
 <input type="radio"  name="tgender" value="male">
-  <p>Male</p>
+  <b style="color:#ffffff;">Male</b>
   <input type="radio" name="tgender" value="female">
-  <p>Female</p>
+  <b style="color:#ffffff;">Female</b>
   <input type="radio" name="tgender" value="other">
-  <p>Others</p></div>
-  <p>District</p>
-  <select name="tdistrict" id="tdistrict" onchange="LoadPLace(this.value)">
+  <b style="color:#ffffff;">Others</b>
+  <p class="pstyle">District</p>
+  <select name="tdistrict" id="tdistrict" onchange="LoadPLace(this.value)" required>
   <option>--select--</option>
   {%for data in dis%}
     <option value="{{  data.id }}">{{data.district_name}}</option>
   {% endfor %}
   </select><br>
-  <p>Dance category</p>
-  <select name="tcat" id="tcat" onchange="LoadPLace(this.value)">
+  <p class="pstyle">Dance category</p>
+  <select name="tcat" id="tcat" onchange="LoadPLace(this.value)" required>
   <option>--select--</option>
   {%for data in cat%}
     <option value="{{  data.id }}">{{data.dancecategory_name}}</option>
   {% endfor %}
   </select><br>
-   <p>Designation</p>
-  <select name="tdesign" id="tdesign" onchange="LoadPLace(this.value)">
+   <p class="pstyle">Designation</p>
+  <select name="tdesign" id="tdesign" onchange="LoadPLace(this.value)" required>
   <option>--select--</option>
   {%for data in des%}
     <option value="{{  data.id }}">{{data.designation_name}}</option>
   {% endfor %}
   </select><br>
   
-<p>Username</p>
+<p class="pstyle">Username</p>
 <input type="text" placeholder="Enter username" name="tusername" required>  
 
 
 
-<p>Password</p>
-<input type="password" placeholder="Enter Password" name="tpassword" required>
-<p>Repeat Password</p>
-<p>Upload Profile Picture</p>
- <input type="file" id="tphoto" name="tphoto"><br>
-  <button type="submit" value="submit" class="btn btn-success subscription">ADD   </button>     
+<p class="pstyle">Password</p>
+<input type="password" placeholder="Enter Password" name="tpassword" id="pass11" required>
+<p class="pstyle">Repeat Password</p>
+<input type="password" placeholder="Repeat Password" name="tpassword2" id="paswinp"required>
+<p class="alertp2" style="display:none; top: -25px !important;">Password should be same</p>
+<p class="pstyle">Upload Profile Picture</p>
+ <input type="file" id="tphoto" name="tphoto" accept="image/*"><br>
+  <button value="submit" class="btn btn-success subscription cre-button" style="width:100%;">ADD   </button>     
           
 
           
@@ -131,4 +134,60 @@
     </div>
     <!-- modal end -->
 
+
+  <script>
+  $(document).ready(function () {
+    $('#myphone').on('input', function () {
+
+      if ($("#myphone").val().length <= 9) {
+        $('.alertp').show()
+        $('#myphone').css("border-color", "#d62b0c")
+
+      }
+      else {
+        $('.alertp').hide()
+        $('#myphone').css("border-color", "#0b7dd8")
+      }
+    })
+  })
+</script>
+<script>
+  $(document).ready(function () {
+    $('.cre-button').click(function (e) {
+      if ($("#myphone").val().length >= 7) {
+        $('.subformclass').submit();
+        $(".pre-lod").show();
+      }
+      else {
+        alert("Enter proper phone number");
+        e.preventDefault();
+      }
+    })
+  })
+</script>
+<script>
+  $(document).ready(function () {
+    $("#paswinp").on("input", function () {
+      var pass1 = $("#pass11").val();
+      var pass2 = $("#paswinp").val();
+      if (pass1 != pass2) {
+        $(".alertp2").show();
+        $("#paswinp").css("border-color", "#d62b0c");
+      } else {
+        $(".alertp2").hide();
+        $("#paswinp").css("border-color", "#0b7dd8");
+      }
+    });
+    $(".cre-button").click(function () {
+      var pass1 = $("#pass11").val();
+      var pass2 = $("#paswinp").val();
+      if (pass1 != pass2) {
+        alert("enter same password");
+      } else {
+        $(".subformclass").submit();
+        $(".pre-lod").show();
+      }
+    });
+  });
+</script>
 {% endblock content %}
